@@ -30,9 +30,9 @@
 \textbf{Model} & \textbf{Venue} & \textbf{Architecture} & \textbf{Vision Encoder} & \textbf{LLM Backbone} & \textbf{Mod.} & \textbf{Prompt} & \textbf{Search} & \textbf{Agentic} \\
 \midrule
 
-% ── No ─────────────────────────────────────────────────────────────
+% ── OCR-Free ─────────────────────────────────────────────────────────────
 \rowcolor{sectionbg}
-\multicolumn{9}{l}{\textbf{No}} \\
+\multicolumn{9}{l}{\textbf{OCR-Free}} \\
 \midrule
   {DocR1}~(\citeyear{xiong2026docr1}) & AAAI & BC & Qwen2.5-VL & Qwen2.5-VL-7B & V & CoT & - & - \\
   {Leopard}~(\citeyear{jia2024leopard}) & TMLR? & BC & SigLIP-SO400M & LLaMa-3.1-8B, Mistral-7B & V & CoT & - & - \\
@@ -52,14 +52,14 @@
 
 \midrule[0.4pt]
 
-% ── Yes ─────────────────────────────────────────────────────────────
+% ── OCR-Used ─────────────────────────────────────────────────────────────
 \rowcolor{sectionbg}
-\multicolumn{9}{l}{\textbf{Yes}} \\
+\multicolumn{9}{l}{\textbf{OCR-Used}} \\
 \midrule
-  {Arctic-TILT}~(\citeyear{borchmann2025arctic}) & ACL & HDT & U-Net & T5-Large & T, V, L & - & - & - \\
-  {GRAM}~(\citeyear{blau2024gram}) & CVPR & HDT & DocFormerv2 & DocFormerv2 & T, V, L & - & - & - \\
-  {Hi-VT5}~(\citeyear{tito2023hierarchical}) & PR & HDT & DiT & T5-Base & T, V, L & - & - & - \\
-  {RM-T5}~(\citeyear{dong2024multi}) & DAS & HDT & DiT & T5-Base & T, V, L & - & - & - \\
+  {Arctic-TILT}~(\citeyear{borchmann2025arctic}) & ACL & PDT & U-Net & T5-Large & T, V, L & - & - & - \\
+  {GRAM}~(\citeyear{blau2024gram}) & CVPR & PDT & DocFormerv2 & DocFormerv2 & T, V, L & - & - & - \\
+  {Hi-VT5}~(\citeyear{tito2023hierarchical}) & PR & PDT & DiT & T5-Base & T, V, L & - & - & - \\
+  {RM-T5}~(\citeyear{dong2024multi}) & DAS & PDT & DiT & T5-Base & T, V, L & - & - & - \\
   {DocSLM}~(\citeyear{hannan2025docslm}) & CVPR? & BC & SigLIP2 & Qwen2.5-1.5B & T, V, L & - & - & - \\
   {InstructDoc}~(\citeyear{tanaka2024instructdoc}) & AAAI & BC & CLIP & FlanT5, BLIP2 & T, V, L & - & - & - \\
   {LayTokenLLM}~(\citeyear{zhu2025simple}) & CVPR & BC & - & LLaMA3-8B, Qwen1.5-7B & T, L & - & - & - \\
@@ -81,6 +81,6 @@
 \bottomrule
 \end{tabular}
 \end{adjustbox}
-\caption{Survey of VRDU models grouped by OCR dependency. Groups: \textbf{Yes}\,=\,OCR required at inference; \textbf{No}\,=\,OCR not required at inference. $^*$\,next to a model name has group-dependent meaning: \textbf{Yes\textsuperscript{*}}\,=\,model is not strictly OCR-dependent but incorporates OCR as a framework component; \textbf{No\textsuperscript{*}}\,=\,OCR was used explicitly during training but is not required at inference. \textbf{Architecture} abbreviations: HDT\,=\,Hierarchical Document Transformer; BC\,=\,Backbone-Centric MLLM Adaptation; Search\,=\,Retriever-Generator; AP\,=\,Agentic Pipeline. \textbf{Mod.}: input modality (T\,=\,text, V\,=\,visual, L\,=\,layout). \textbf{Search Strat.}: retrieval strategy (Dense, Sparse, Joint\,=\,both). \textbf{Prompt Strat.}: prompting strategy (CoT\,=\,Chain of Thought; ReAct\,=\,Reason\,+\,Act). \textbf{Agentic}: agentic workflow type (Open\,=\,open-ended tool use; Fixed\,=\,fixed pipeline). `--' indicates not reported.}
+\caption{Survey of VRDU models grouped by OCR dependency. Groups: \textbf{OCR-Used}\,=\,OCR required at inference; \textbf{OCR-Free}\,=\,OCR not required at inference. $^*$\,next to a model name has group-dependent meaning: \textbf{Yes\textsuperscript{*}}\,=\,model is not strictly OCR-dependent but incorporates OCR as a framework component; \textbf{No\textsuperscript{*}}\,=\,OCR was used explicitly during training but is not required at inference. \textbf{Architecture} abbreviations: PDT\,=\,Page-to-Document Transformer; BC\,=\,Backbone-Centric MLLM Adaptation; Search\,=\,Retriever-Generator; AP\,=\,Agentic Pipeline. \textbf{Mod.}: input modality (T\,=\,text, V\,=\,visual, L\,=\,layout). \textbf{Search Strat.}: retrieval strategy (Dense, Sparse, Joint\,=\,both). \textbf{Prompt Strat.}: prompting strategy (CoT\,=\,Chain of Thought; ReAct\,=\,Reason\,+\,Act). \textbf{Agentic}: agentic workflow type (Open\,=\,open-ended tool use; Fixed\,=\,fixed pipeline). `--' indicates not reported.}
 \label{tab:model_survey_ocr}
 \end{table*}

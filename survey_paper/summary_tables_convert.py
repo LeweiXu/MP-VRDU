@@ -81,18 +81,24 @@ PREFERRED_ORDER = [
 ]
 
 ARCH_GROUP_ORDER = [
+    "Page-to-Document Transformer",
     "Hierarchical Document Transformer",
     "Backbone-Centric MLLM Adaptation",
     "Retriever-Generator",
     "Agentic Pipeline",
 ]
 
-OCR_GROUP_ORDER = ["No", "Yes"]
+OCR_GROUP_LABELS = {
+    "No": "OCR-Free",
+    "Yes": "OCR-Used",
+}
+OCR_GROUP_ORDER = ["OCR-Free", "OCR-Used"]
 OCR_SORT_ORDER = ["No", "No*", "Yes", "Yes*"]
 
 # Abbreviations for the Architecture column when shown inside the OCR table.
 ARCH_ABBREVS = {
-    "Hierarchical Document Transformer": "HDT",
+    "Page-to-Document Transformer":     "PDT",
+    "Hierarchical Document Transformer": "PDT",
     "Backbone-Centric MLLM Adaptation":  "BC",
     "Retriever-Generator":                "RAG",
     "Agentic Pipeline":                   "AP",
@@ -272,6 +278,7 @@ def build_single_table(df, group_col, group_order_list, hidden_cols,
     )
     if group_col == "OCR":
         work_df["_group"] = work_df["_group"].str.rstrip("*")
+        work_df["_group"] = work_df["_group"].map(OCR_GROUP_LABELS).fillna(work_df["_group"])
 
     work_df = add_secondary_sort_keys(
         work_df,
@@ -390,15 +397,15 @@ def main():
         ocr_hidden = ALWAYS_HIDDEN | {ocr_col}
         ocr_caption = (
             r"Survey of VRDU models grouped by OCR dependency. "
-            r"Groups: \textbf{Yes}\,=\,OCR required at inference; "
-            r"\textbf{No}\,=\,OCR not required at inference. "
+            r"Groups: \textbf{OCR-Used}\,=\,OCR required at inference; "
+            r"\textbf{OCR-Free}\,=\,OCR not required at inference. "
             r"$^*$\,next to a model name has group-dependent meaning: "
             r"\textbf{Yes\textsuperscript{*}}\,=\,model is not strictly OCR-dependent "
             r"but incorporates OCR as a framework component; "
             r"\textbf{No\textsuperscript{*}}\,=\,OCR was used explicitly during training "
             r"but is not required at inference. "
             r"\textbf{Architecture} abbreviations: "
-            r"HDT\,=\,Hierarchical Document Transformer; "
+            r"PDT\,=\,Page-to-Document Transformer; "
             r"BC\,=\,Backbone-Centric MLLM Adaptation; "
             r"Search\,=\,Retriever-Generator; AP\,=\,Agentic Pipeline. "
             r"\textbf{Mod.}: input modality (T\,=\,text, V\,=\,visual, L\,=\,layout). "
