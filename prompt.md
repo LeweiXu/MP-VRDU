@@ -51,9 +51,6 @@ The paper is structured around a clear separation between **overview sections** 
 \section{Datasets}                                        % drafted, placeholders remain
 
 \section{Challenges}                                      % bullet form
-  \subsection{Long-Context and Visual Token Scaling}
-  \subsection{Distributed Evidence: Localisation and Cross-Page Reasoning}
-  \subsection{Dataset and Supervision Scarcity}
 
 \section{Limitations}
 \section{Ethics}

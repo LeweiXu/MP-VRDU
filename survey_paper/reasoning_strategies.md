@@ -137,3 +137,239 @@ This document classifies the reasoning strategies of 11 multi-modal document VQA
 | SimpleDoc | IR, QR, SR, SV, 1A | 1 (reasoner agent) | Dual-cue retriever (ColQwen + summary re-rank) — dynamic |
 | ViDoRAG | ReAct, HD, IR, SR, SV, MA-R, MA-D | 3 (Seeker, Inspector, Answer) | GMM-based hybrid retrieval (visual + textual) — dynamic |
 | DocLens | CoT, SA, MA-R | 4 (Page Navigator, Element Localizer, Answer Sampler, Adjudicator) | OCR, layout detection, cropping — fixed pipeline |
+
+---
+
+## Round 2: Retriever-Generator (RAG) Family
+
+These models perform retrieval + generation, typically in a single-pass pipeline. Most have minimal or no inference-time reasoning patterns. Tags are deliberately conservative.
+
+### AVIR
+
+- **Tags:** `HD, 1A`
+- **Distinct agents:** 1 (frozen Qwen2.5-VL-3B-AWQ generator; the retriever and adaptive page selector are non-agentic modules).
+- **Tools:** Pix2Struct-based lightweight page retriever + adaptive page selector (clustering / threshold). Fixed pipeline; no LLM-driven action selection.
+- **Justification:** Score → cluster/threshold → Top-K → frozen LVLM answer. The clustering vs. threshold branch is a deterministic data-driven switch, not LLM-controlled. No CoT prompting described. The coarse-then-fine score-clustering selector is mildly hierarchical (HD), but there is no iterative refinement.
+
+### CREAM
+
+- **Tags:** `HD, 1A`
+- **Distinct agents:** 1 (LLaMA-Adapter-V2-based MLLM as the answer generator; RankVicuna LLM is used as a re-ranker tool inside the retriever).
+- **Tools:** Coarse-to-fine retrieval pipeline — bge-large embedding retrieval, then LLM-based grouped re-ranking (RankVicuna), then attention-pooled multi-page vision encoder. Fixed pipeline.
+- **Justification:** Coarse-then-fine retrieval with LLM re-ranking is hierarchical decomposition (HD), but generation is a single forward pass through a fine-tuned MLLM with no CoT prompting, no iteration, no self-verification.
+
+### DFVC
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (no LLM reasoning agent; this paper proposes a retrieval-only adapter, with downstream answering left to off-the-shelf retrievers like VisRAG/ColQwen).
+- **Tools:** Lightweight MLP adapter that fuses neighbouring page embeddings via gating + residual connection. Pure feed-forward.
+- **Justification:** This work modifies only the retrieval embedding by fusing context from neighbouring pages. There is no agentic component, no CoT, no iterative reasoning. It is a parameter-efficient retrieval enhancement.
+
+### M3DocRAG
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (Qwen2-VL-7B as MLLM answerer).
+- **Tools:** ColPali multi-modal retriever with MaxSim scoring + IVF approximate index. Single retrieval call, fixed pipeline.
+- **Justification:** Three-stage embed → retrieve top-K → answer with MLLM. Single-pass generation, no CoT prompt, no iteration, no query reformulation. Pure RAG baseline.
+
+### MHier-RAG
+
+- **Tags:** `CoT, HD, 1A`
+- **Distinct agents:** 1 (an LLM/LVLM such as Qwen-turbo/GPT-4o for answer generation; an LLM also re-ranks parent pages, but acts as a tool in the retriever, not a separate role).
+- **Tools:** Hierarchical index = flattened in-page chunks + topological cross-page (GMM-clustered) summary tree. Multi-granularity retriever fuses page-level parent-page retrieval and document-level summary retrieval. LLM-based re-ranking. Fixed pipeline.
+- **Justification:** The paper explicitly uses "a Chain-of-Thought (CoT) prompting strategy with structured output" for answer reasoning (CoT). The two-level (page-level + document-level / cluster summary) index is hierarchical decomposition (HD). Retrieval and generation each run once; no iteration, no self-verification, no multi-agent debate.
+
+### MLDocRAG
+
+- **Tags:** `HD, 1A`
+- **Distinct agents:** 1 (Qwen2.5-VL-32B as the LVLM generator; an LVLM is also used offline to generate Doc2Query queries during graph construction, but this is a one-time index-building step rather than an inference-time agent).
+- **Tools:** Multimodal Chunk-Query Graph (MCQG) built via MDoc2Query expansion; KNN over query nodes + multi-hop graph traversal + chunk ranking. Fixed retrieval pipeline followed by single-pass generation.
+- **Justification:** Multi-hop graph traversal over the chunk-query graph imposes a hierarchical / structured retrieval (HD) but is purely an index-side mechanism, not an LLM-driven action selection. The generator runs once with no CoT prompt explicitly described and no iteration.
+
+### MoLoRAG
+
+- **Tags:** `IR, Nav, 1A`
+- **Distinct agents:** 1 (a small VLM, e.g., Qwen2.5-VL-3B, acts as the retrieval engine performing graph traversal; downstream LVLM answers from top-K).
+- **Tools:** Page graph built from ColPali embeddings. The retrieval-engine VLM scores logical relevance per visited page and decides which neighbours to traverse next; multi-hop BFS-like traversal with bounded width and hop count.
+- **Justification:** The retrieval engine performs **iterative, controller-driven graph traversal** (Nav, IR) with up to `n_hop` multi-hop expansion, using VLM-assigned logical relevance scores at each step. This is the only RAG paper in this round whose retrieval is genuinely agent-controlled rather than a fixed pipeline. Generation is then single-pass, no CoT/SV described.
+
+### MultiDocFusion
+
+- **Tags:** `HD, 1A`
+- **Distinct agents:** 1 (an LLM, e.g., Mistral-8B-based DSHP-LLM, is used at indexing time to construct the section hierarchy; downstream answer is generated by a separate LLM after BGE-based retrieval).
+- **Tools:** DP (vision layout) + OCR + DSHP-LLM (LoRA-tuned) building a hierarchical document tree + DFS-based hierarchical chunking + BGE/E5/BM25 retrieval. Fixed pipeline.
+- **Justification:** Hierarchical document-tree construction and hierarchical chunking is HD, but it is a pre-processing/indexing pipeline. Retrieval and generation each run once with no inference-time reasoning loop, no CoT, no iteration.
+
+### PDF-WuKong
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (an MLLM based on IXC2-VL-4KHD).
+- **Tools:** End-to-end sparse sampler — text encoder (BGE-M3) + shared image encoder pre-encode all paragraphs/diagrams; at query time the model selects top-5 relevant chunks via similarity and feeds them with the query into the LLM. Single sampling step, integrated end-to-end.
+- **Justification:** Sparse sampler + LLM trained jointly. One-shot retrieval-then-generate. No CoT prompt, no iteration, no multi-agent collaboration. Pure feed-forward design.
+
+### RAG-DocVQA (López et al.)
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (one of VT5, Qwen2.5-VL-7B, or Pix2Struct as the answer generator).
+- **Tools:** Bi-encoder (bge-en-small) chunk retrieval + cross-encoder reranker (textual variant) or ColBERT-style late-interaction visual patch retrieval (visual variant). Fixed three-stage pipeline (index → retrieve+rerank → generate).
+- **Justification:** Standard textual/visual RAG pipeline; the cross-encoder reranker improves precision but does not constitute reasoning. No CoT, no iteration, no agent control flow.
+
+### Self-Attention Scoring (Kang et al.)
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (Pix2Struct encoder-decoder; the self-attention scoring head is a small 1-layer 16-head module on top of the frozen encoder).
+- **Tools:** Self-attention scoring head produces per-page relevance probabilities; top-1 page is selected; the same Pix2Struct model then generates the answer. Fixed pipeline.
+- **Justification:** A single OCR-free model with an auxiliary scoring head. No reasoning trace, no CoT, no iteration. Closer in spirit to Hi-VT5/RM-T5 but with retrieval-style top-1 page selection.
+
+### VDocRAG
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (VDocGenerator, a Phi3V-based LVLM; VDocRetriever shares architecture but is a retrieval module, not a reasoning agent).
+- **Tools:** Dual-encoder visual retrieval (LVLM-based with EOS-token compression via RCR/RCG pre-training) + LVLM generator. Fixed retrieve-then-generate pipeline.
+- **Justification:** The contribution is in retriever pre-training tasks (Representation Compression via Retrieval / Generation). At inference time it is a single-pass RAG. No CoT prompt, no iteration, no multi-agent.
+
+---
+
+## Round 2: Backbone-Centric MLLM Adaptation Family
+
+These are mostly trained models with single-pass inference. Tags are minimal unless the paper explicitly describes an inference-time reasoning pattern.
+
+### CoR (Chain-of-Reading, Qwen2.5-VL-CoR)
+
+- **Tags:** `CoT, PE, HD, 1A`
+- **Distinct agents:** 1 (an MLLM, Qwen2.5-VL fine-tuned on CoR traces).
+- **Tools:** None at inference (end-to-end MLLM with `<think>`/`<answer>` traces). Mask-AR is a self-supervised pre-training objective, not an inference tool.
+- **Justification:** CoR explicitly trains an MLLM to follow a four-stage Chain-of-Reading: Task Planning → Phased & Focused Search (coarse-to-fine) → Cross-modal Evidence Integration → Synthesized Reasoning & Verification, all emitted in a single `<think>` block. This is CoT with an explicit plan-then-execute structure (PE) and coarse-to-fine localization (HD), but it remains a single MLLM without external tools or multi-agent coordination.
+
+### Docopilot
+
+- **Tags:** `1A`
+- **Distinct agents:** 1 (a native long-context MLLM trained from InternVL2 on Doc-750K).
+- **Tools:** None — argued explicitly against RAG/tools in favour of native long-context processing.
+- **Justification:** Trained model with single-pass inference. No reasoning trace, no CoT prompting, no iteration. The contribution is the dataset and training recipe, not an inference-time strategy.
+
+### DocR1
+
+- **Tags:** `CoT, HD, 1A`
+- **Distinct agents:** 1 (Qwen2.5-VL-7B-Instruct trained with EviGRPO).
+- **Tools:** None at inference. EviGRPO is an RL training framework with format/accuracy/evidence-page rewards.
+- **Justification:** DocR1 emits structured `<think>`/`<evidence_page>`/`<answer>` outputs. The paper explicitly describes a "coarse-to-fine" reading strategy where the model first identifies relevant pages, then reasons over them — a CoT-with-evidence-localization pattern (HD), trained via GRPO. It is still a single MLLM inferring in one forward pass.
+
+### DocSLM
+
+- **Tags:** `SC, 1A`
+- **Distinct agents:** 1 (a 2B SVLM with hierarchical multimodal compression).
+- **Tools:** Hierarchical Multimodal Compressor (page-level token compression) + Streaming Abstention with an entropy-based uncertainty calibrator that aggregates per-segment predictions.
+- **Justification:** The Streaming Abstention mechanism processes document segments sequentially, produces per-segment answers with uncertainty scores, and selects the lowest-uncertainty answer at the document level. This is an uncertainty-weighted vote across independent samples — a self-consistency-style aggregation (SC), albeit over document segments rather than reasoning paths. No CoT prompt, no iteration on a single segment.
+
+### InstructDoc / InstructDr
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (a trained instruction-tuned model with a Document-former bridging module).
+- **Tools:** None at inference.
+- **Justification:** Pure instruction-tuned MLLM trained on 30 VDU datasets with handcrafted instructions. No inference-time reasoning pattern is described.
+
+### LayTokenLLM
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (a trained LLM with single-token layout representation).
+- **Tools:** None.
+- **Justification:** Pure architectural / tokenisation contribution (layout-as-single-token, NTLP pre-training). No inference-time reasoning pattern.
+
+### Leopard
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (instruction-tuned MLLM for text-rich multi-image tasks).
+- **Tools:** None.
+- **Justification:** Trained model with adaptive high-resolution multi-image encoding. Single-pass inference with no described reasoning strategy.
+
+### mPLUG-DocOwl2
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (an MLLM with a High-resolution DocCompressor).
+- **Tools:** None.
+- **Justification:** Token-compression architecture trained in three stages (single-image pretraining → multi-image continue-pretraining → multi-task finetuning). Single-pass inference; no inference-time reasoning pattern.
+
+### TextHawk2
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (a bilingual LVLM with 16x token compression).
+- **Tools:** None.
+- **Justification:** Trained model focused on token compression and visual encoder reinforcement. No inference-time reasoning pattern described.
+
+---
+
+## Round 2: Page-to-Document (Hierarchical Document Transformer) Family
+
+These end-to-end encoder-decoder models have no inference-time reasoning pattern. They process documents in a single forward pass with architectural mechanisms (memory, global tokens, hierarchical encoders) for cross-page integration.
+
+### Arctic-TILT
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (a sub-billion-parameter encoder-decoder built on TILT/T5).
+- **Tools:** None.
+- **Justification:** Single end-to-end encoder-decoder with tensor-product modality fusion and SLED-style sparse attention (max 400k tokens). Single-pass inference; no inference-time reasoning pattern.
+
+### GRAM
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (encoder-decoder with global-local interleaved layers, optionally followed by a C-Former compression transformer).
+- **Tools:** None.
+- **Justification:** Single forward pass with page-level and document-level (global) tokens interacting through interleaved encoder blocks; the C-Former is an architectural compressor, not a reasoning module.
+
+### Hi-VT5
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (T5-based hierarchical multimodal encoder-decoder).
+- **Tools:** None.
+- **Justification:** Each page is encoded independently into [PAGE] summary tokens; the decoder consumes the concatenation of all [PAGE] tokens. Single forward pass; the page-prediction head is a classification output, not a reasoning step.
+
+### RM-T5 (Recurrent Memory Transformer)
+
+- **Tags:** `—`
+- **Distinct agents:** n/a (T5 encoder-decoder with recurrent memory cells across pages).
+- **Tools:** None.
+- **Justification:** Pages are processed sequentially with memory tokens carrying context across pages, then all memory cells are concatenated and fed to the decoder. Although the recurrence is iterative across pages, it is a fixed architectural unrolling, not an inference-time reasoning loop driven by the model's outputs.
+
+---
+
+## Combined Summary Table (All ~36 Models)
+
+| Model | Family | Reasoning Strategy | # Agents | Tools |
+|---|---|---|---|---|
+| Doc-V* | Agentic | ReAct, HD, Nav, IR, QR, 1A | 1 | retrieval_page (ColQwen), fetch_page — dynamic |
+| DocAgent | Agentic | ReAct, HD, Nav, IR, MA-R, MA-D | 3 | search, get_section_content, get_image, get_page_images, get_table_image — dynamic |
+| DocDancer | Agentic | ReAct, IR, QR, 1A | 1 | Search, Read — dynamic |
+| Doc-React | Agentic | ReAct, QD, IR, QR, 1A | 1 | Multimodal retriever (ColPali / VisRAG) — dynamic |
+| KGP | Agentic | IR, Nav, 1A | 1 | TF-IDF seeds + LLM-guided KG traversal — dynamic |
+| M2RAG | Agentic | MA-R | 3 | BM25, VisRAG-Ret — fixed pipeline |
+| MACT | Agentic | CoT, PE, SC, SV, MA-R, MA-D | 4 | Tool library used by Execution agent — partially dynamic within plan |
+| MDocAgent | Agentic | MA-R | 5 | ColBERTv2 + ColPali — fixed pipeline |
+| SimpleDoc | Agentic | IR, QR, SR, SV, 1A | 1 | Dual-cue retriever (ColQwen + summary re-rank) — dynamic |
+| ViDoRAG | Agentic | ReAct, HD, IR, SR, SV, MA-R, MA-D | 3 | GMM-based hybrid retrieval — dynamic |
+| DocLens | Agentic | CoT, SA, MA-R | 4 | OCR, layout detection, cropping — fixed pipeline |
+| AVIR | RAG | HD, 1A | 1 | Pix2Struct retriever + adaptive selector — fixed pipeline |
+| CREAM | RAG | HD, 1A | 1 | bge-large + RankVicuna re-ranker + multi-page vision encoder — fixed pipeline |
+| DFVC | RAG | — | n/a | MLP gating adapter over frozen VLM (retrieval only) |
+| M3DocRAG | RAG | 1A | 1 | ColPali (MaxSim, IVF index) — single-pass retrieve-then-generate |
+| MHier-RAG | RAG | CoT, HD, 1A | 1 | In-page + cross-page hierarchical index, LLM re-ranker — fixed pipeline |
+| MLDocRAG | RAG | HD, 1A | 1 | MCQG graph (MDoc2Query) + KNN + multi-hop traversal — fixed retrieval |
+| MoLoRAG | RAG | IR, Nav, 1A | 1 | ColPali page graph + VLM-driven multi-hop traversal — dynamic |
+| MultiDocFusion | RAG | HD, 1A | 1 | DSHP-LLM hierarchical tree + DFS chunking + BGE retrieval — fixed pipeline |
+| PDF-WuKong | RAG | 1A | 1 | End-to-end sparse sampler (BGE-M3 + image encoder) — single-pass |
+| RAG-DocVQA | RAG | 1A | 1 | bi-encoder + cross-encoder reranker (text) or ColBERT-style late interaction (visual) — fixed pipeline |
+| Self-Attn Scoring | RAG | 1A | 1 | Self-attention scoring head over Pix2Struct — fixed pipeline |
+| VDocRAG | RAG | 1A | 1 | LVLM dual-encoder (RCR/RCG pre-training) — fixed pipeline |
+| CoR | Backbone | CoT, PE, HD, 1A | 1 | None (end-to-end Qwen2.5-VL-CoR) |
+| Docopilot | Backbone | 1A | 1 | None (native long-context MLLM) |
+| DocR1 | Backbone | CoT, HD, 1A | 1 | None (Qwen2.5-VL-7B trained with EviGRPO) |
+| DocSLM | Backbone | SC, 1A | 1 | Hierarchical compressor + streaming abstention with uncertainty calibrator |
+| InstructDoc | Backbone | — | n/a | None |
+| LayTokenLLM | Backbone | — | n/a | None |
+| Leopard | Backbone | — | n/a | None |
+| mPLUG-DocOwl2 | Backbone | — | n/a | None |
+| TextHawk2 | Backbone | — | n/a | None |
+| Arctic-TILT | Page-to-Doc | — | n/a | None (sparse attention encoder-decoder) |
+| GRAM | Page-to-Doc | — | n/a | None (global-local encoder + optional C-Former) |
+| Hi-VT5 | Page-to-Doc | — | n/a | None (hierarchical T5) |
+| RM-T5 | Page-to-Doc | — | n/a | None (recurrent memory transformer) |
