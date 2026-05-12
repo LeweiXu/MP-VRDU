@@ -46,95 +46,39 @@
 \usepackage{multirow}
 \usepackage{amssymb}
 
-% If the title and author information does not fit in the area allocated, uncomment the following
-%
-%\setlength\titlebox{<dim>}
-%
-% and set <dim> to something 5cm or larger.
-
-\title{Literature Review: Multi-Page Visually Rich Document Understanding}
-
-% Author information can be set in various styles:
-% For several authors from the same institution:
-% \author{Author 1 \and ... \and Author n \\
-%         Address line \\ ... \\ Address line}
-% if the names do not fit well on one line use
-%         Author 1 \\ {\bf Author 2} \\ ... \\ {\bf Author n} \\
-% For authors from different institutions:
-% \author{Author 1 \\ Address line \\  ... \\ Address line
-%         \And  ... \And
-%         Author n \\ Address line \\ ... \\ Address line}
-% To start a separate ``row'' of authors use \AND, as in
-% \author{Author 1 \\ Address line \\  ... \\ Address line
-%         \AND
-%         Author 2 \\ Address line \\ ... \\ Address line \And
-%         Author 3 \\ Address line \\ ... \\ Address line}
+\title{Methodology on the Multi-Page Visually Rich Document Understanding Frontier: A Literature Review}
 
 \author{Author: Lewei Xu \\
   The University of Western Australia \\
-  Supervisors: Dr Yihao Ding, Dr Daochang Liu \\
-  Degree: BACS (Honours) \\}
-
-%\author{
-%  \textbf{First Author\textsuperscript{1}},
-%  \textbf{Second Author\textsuperscript{1,2}},
-%  \textbf{Third T. Author\textsuperscript{1}},
-%  \textbf{Fourth Author\textsuperscript{1}},
-%\\
-%  \textbf{Fifth Author\textsuperscript{1,2}},
-%  \textbf{Sixth Author\textsuperscript{1}},
-%  \textbf{Seventh Author\textsuperscript{1}},
-%  \textbf{Eighth Author \textsuperscript{1,2,3,4}},
-%\\
-%  \textbf{Ninth Author\textsuperscript{1}},
-%  \textbf{Tenth Author\textsuperscript{1}},
-%  \textbf{Eleventh E. Author\textsuperscript{1,2,3,4,5}},
-%  \textbf{Twelfth Author\textsuperscript{1}},
-%\\
-%  \textbf{Thirteenth Author\textsuperscript{3}},
-%  \textbf{Fourteenth F. Author\textsuperscript{2,4}},
-%  \textbf{Fifteenth Author\textsuperscript{1}},
-%  \textbf{Sixteenth Author\textsuperscript{1}},
-%\\
-%  \textbf{Seventeenth S. Author\textsuperscript{4,5}},
-%  \textbf{Eighteenth Author\textsuperscript{3,4}},
-%  \textbf{Nineteenth N. Author\textsuperscript{2,5}},
-%  \textbf{Twentieth Author\textsuperscript{1}}
-%\\
-%\\
-%  \textsuperscript{1}Affiliation 1,
-%  \textsuperscript{2}Affiliation 2,
-%  \textsuperscript{3}Affiliation 3,
-%  \textsuperscript{4}Affiliation 4,
-%  \textsuperscript{5}Affiliation 5
-%\\
-%  \small{
-%    \textbf{Correspondence:} \href{mailto:email@domain}{email@domain}
-%  }
-%}
+  \textbf{Supervisors}: Dr Yihao Ding, Dr Daochang Liu \\
+  \textbf{Degree}: BACS (Honours) \\}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-Multi-page visually rich document understanding (MP-VRDU) has matured along four architectural families: page-to-document encoders, backbone-centric multimodal language models, retriever-generator pipelines, and agentic pipelines. On top of these, an increasingly elaborate inventory of training-free orchestration techniques has emerged. This review synthesises the literature on both, with disproportionate weight on the retrieval-augmented and agentic strands that drive the current frontier. A consistent pattern recurs across the most recent advances: progress has come from localised methodological refinements layered on top of a relatively stable architectural substrate, with retrieval, reasoning, orchestration, and training-side stages each admitting further intervention. This review argues that the most tractable route to measurable progress is therefore a methodology contribution targeting one or more existing agentic or retriever-generator systems and evaluated head-to-head against their published numbers on shared benchmarks. The final sections consolidate the methodological gaps on the agentic frontier, identify a candidate set of target systems and intervention loci, and outline the research direction the project pursues.
 \end{abstract}
 
-% =============================================================
+
 \section{Introduction}
-% =============================================================
 
-Documents are the principal medium through which organisations, governments, and the scientific community record and exchange information. Contracts, financial reports, scientific papers, technical manuals, regulatory filings, and presentation decks are not only ubiquitous but almost always span multiple pages and interleave dense text with tables, figures, diagrams, and complex layouts~\cite{tito2023hierarchical,borchmann2025arctic}. Manually extracting information from such documents is slow, expensive, and error-prone, motivating a sustained research effort to build automated document visual question answering (DocVQA) systems that can answer natural-language questions over rendered document pages.
+Documents are the principal medium through which organisations, governments, and the scientific community record and exchange information. Contracts, financial reports, scientific papers, technical manuals, regulatory filings, and presentation decks are pervasive and structurally heterogeneous, interleaving dense text with tables, figures, diagrams, and complex layouts~\cite{tito2023hierarchical,borchmann2025arctic}. Manually extracting information from such documents is slow, expensive, and error-prone, motivating a sustained research effort to build automated document visual question answering (DocVQA) systems that can answer natural-language questions over rendered document pages.
 
-Progress on the single-page formulation of this problem has been substantial, with state-of-the-art systems such as Qwen2.5-VL~\cite{bai2025qwen2} and mPLUG-DocOwl1.5~\cite{hu2024mplug1.5} approaching or exceeding human performance on benchmarks such as DocVQA~\cite{mathew2021docvqa}, InfographicVQA~\cite{mathew2022infographicvqa}, and ChartQA~\cite{masry2022chartqa}. The vast majority of real-world documents, however, extend well beyond a single page, and the evidence required to answer a realistic question is typically scattered across several pages or distributed across heterogeneous elements~\cite{tito2023hierarchical,blau2024gram,borchmann2025arctic}. Three structural challenges follow from the move to multi-page inputs. First, the input token count grows linearly (or worse) with page count, rapidly exceeding the context window of even long-context large language models (LLMs) and multimodal LLMs (MLLMs). Second, answering a question often requires resolving cross-page semantic and logical dependencies, including section hierarchy, multi-page tables, and figure-to-text references. Third, explainability becomes considerably harder, as a model must not only produce a correct answer but also surface which pages or passages support it.
+For single-page inputs, this problem is largely solved. Document-specialised systems such as Qwen2.5-VL~\cite{bai2025qwen2} and mPLUG-DocOwl1.5~\cite{hu2024mplug1.5} approach or exceed human performance on DocVQA~\cite{mathew2021docvqa}, InfographicVQA~\cite{mathew2022infographicvqa}, and ChartQA~\cite{masry2022chartqa}, and recent frontier multimodal LLMs such as Claude Opus 4.7~\cite{anthropic2026opus47} and Gemini 3.1 Pro~\cite{google2026gemini31} can now read a rendered page directly from pixels, treating the document as an image and matching or exceeding human reading of text, tables, and figures provided the input resolution is sufficient. Real-world documents, however, almost always extend beyond a single page, and the evidence required for a realistic question is typically scattered across several pages or distributed across heterogeneous elements~\cite{tito2023hierarchical,blau2024gram,borchmann2025arctic}. Three structural challenges follow from the move to multi-page inputs. First, encoding each page already consumes hundreds to thousands of visual tokens at the resolutions required to read fine text~\cite{hu2025mplug2}, so multi-page input rapidly exhausts the context window of even long-context large language models (LLMs) and multimodal LLMs (MLLMs); quadratic-cost self-attention~\cite{vaswani2017attention} compounds the compute burden further. Second, answering a question often requires resolving cross-page semantic and logical dependencies, including section hierarchy, multi-page tables, and figure-to-text references. Third, explainability becomes considerably harder, as a model must not only produce a correct answer but also surface which pages or passages support it.
 
-Recent surveys cover visually rich document understanding (VRDU) primarily at the single-page level, organising methods by OCR dependency~\cite{ding2025survey,huang2022layoutlmv3}. The multi-page frontier, however, has developed its own architectural taxonomy and an increasingly elaborate inventory of inference-time techniques that are inadequately captured by an OCR-versus-no-OCR axis. This review focuses exclusively on multi-page VRDU and gives proportional weight to the families that now dominate the literature: retriever-generator pipelines and agentic pipelines. The presentation begins with a compact treatment of the four architectural families (\S\ref{sec:architecture}), the modality-specific design challenges that distinguish multi-page from single-page settings (\S\ref{sec:modalities}), and the training (\S\ref{sec:training}) and training-free (\S\ref{sec:trainingfree}) strategies that build on those architectures, with a short summary of the dataset landscape (\S\ref{sec:datasets}). The final two sections then consolidate the research gaps with explicit attention to where agentic pipelines are heading (\S\ref{sec:gaps}) and frame the methodology research direction this project pursues, including the candidate target systems, the methodological loci where intervention is most likely to yield measurable gains, and the techniques from adjacent literatures the project may draw on (\S\ref{sec:external}).
+Recent surveys cover visually rich document understanding (VRDU) primarily at the single-page level, organising methods by OCR dependency~\cite{ding2025survey,huang2022layoutlmv3}. The multi-page frontier, however, has developed its own architectural taxonomy and an increasingly elaborate inventory of inference-time techniques that are inadequately captured by an OCR-versus-no-OCR axis. This review focuses exclusively on multi-page VRDU and gives proportional weight to the families that now dominate the literature: retriever-generator pipelines and agentic pipelines. Section~\ref{sec:background} first reviews the single-page substrate that multi-page systems inherit. Sections~\ref{sec:architecture}--\ref{sec:datasets} then survey the multi-page literature across architecture, multimodal representation, training, training-free strategies, and datasets, and the final two sections (\S\S\ref{sec:gaps}--\ref{sec:external}) consolidate the resulting open problems and motivate a methodology research direction aimed at improving existing retriever-generator and agentic systems on the benchmarks they share.
 
-% =============================================================
+
+\section{Background: Single-Page VRDU}
+\label{sec:background}
+
+Multi-page VRDU systems inherit most of their per-page machinery from the single-page literature, recently surveyed by Ding et al.~\cite{ding2025survey}. The dominant axis at the single-page level distinguishes two architectural families. \textbf{OCR-dependent frameworks} preprocess the page with off-the-shelf OCR or PDF parsers, producing recognised text and bounding-box layout that is either fed into the LLM prompt directly or projected through an auxiliary multimodal encoder such as LayoutLMv3~\cite{layoutlmv3}, with text-layout fusion supplied through 2D positional encodings, layout-aware attention, or rule-based verbalisation of bounding boxes. \textbf{OCR-free frameworks} discard the parser and instead have a vision encoder read text directly from rendered page pixels, with the LLM trained to recover text and layout through pretraining objectives such as text recognition, grounding, and captioning~\cite{donut,mplugdocowl15,ureader}. The two families trade different costs: OCR-dependent systems inherit cumulative parser errors but avoid expensive visual pretraining, whereas OCR-free systems handle handwriting and complex layout end-to-end but require high-resolution input and large-scale pretraining.
+
+Across both families, three orthogonal design decisions recur and persist into the multi-page setting. Text is recovered as OCR strings in the prompt, through OCR-augmented multimodal encoders, or as a training objective for the vision encoder itself. Layout is encoded as 2D positional features, as verbalised bounding boxes in the prompt, or as supervised pretraining tasks such as text grounding. Visual tokens are managed through low-resolution patch embeddings, high-resolution shape-adaptive cropping~\cite{ureader}, or compression via resamplers, Q-Formers, and convolutional reducers~\cite{mplugdocowl2,texthawk2}. Single-page systems make these choices assuming the entire document fits in a single backbone input; the multi-page setting reformulates each into a question of which page or region to attend to next.
+
 \section{Architectural Landscape}
 \label{sec:architecture}
-% =============================================================
 
-To motivate the specific research direction this project pursues, this review first establishes how the field has organised itself architecturally, since each family carries a different relationship to the evidence pool that ultimately frames the project's contribution. Earlier VRDU work was studied predominantly at the single-page level, and the dominant taxonomy in that setting distinguishes OCR-dependent methods, which consume recognised text and layout boxes, from OCR-free methods, which process page images directly~\cite{ding2025survey,huang2022layoutlmv3}. This OCR axis suffices when the entire document fits in one input but does not resolve the design dimensions introduced by multi-page documents: inputs often exceed the backbone's context window, and the evidence required for a single answer is sparsely distributed across pages and modalities. These pressures force architectural choices about \emph{how} and \emph{where} cross-page evidence is selected and integrated, largely independently of OCR usage. Read through this evidence-management lens, the multi-page literature divides into four recurring families: page-to-document encoding models, backbone-centric MLLM adaptation, retriever-generator pipelines, and agentic pipelines. The four are presented below in roughly the order they entered the field, and the limits of each motivate the next.
+The OCR axis from single-page VRDU (\S\ref{sec:background}) does not resolve the design dimensions introduced by multi-page documents. Inputs frequently exceed the backbone's context window, and the evidence required for a single answer is sparsely distributed across pages and modalities, forcing architectural choices about \emph{how} and \emph{where} cross-page evidence is selected and integrated, largely independently of OCR usage. Through this evidence-management lens, the multi-page literature divides into four recurring families: page-to-document encoding models, backbone-centric MLLM adaptation, retriever-generator pipelines, and agentic pipelines. The four are presented below in roughly the order they entered the field.
 
 \subsection{Page-to-Document Encoding Models}
 Page-to-document encoding models process each page through a shared layout-aware encoder such as LayoutLMv3~\cite{huang2022layoutlmv3} or DocFormerv2~\cite{appalaraju2024docformerv2} that fuses OCR text, bounding-box layout, and visual features within the page, then connect per-page representations through cross-page attention~\cite{blau2024gram,borchmann2025arctic}, per-page summary tokens~\cite{tito2023hierarchical}, or recurrent state propagation~\cite{dong2024multi}. By preserving page boundaries and cross-page reading order in the architecture itself, this design provides a strong inductive bias for documents with regular structural templates such as multi-page forms and reports. Every page must nonetheless be jointly encoded in a single forward pass, and the page-to-document compression step discards fine-grained evidence as inputs grow~\cite{blau2024gram,dong2024multi}. Subsequent families address these pressures by replacing the dedicated cross-page encoder with more flexible mechanisms.
@@ -148,14 +92,10 @@ Retriever-generator pipelines decouple evidence selection from answer generation
 \subsection{Agentic Pipelines}
 Agentic pipelines replace the fixed retrieval pipeline with iterative evidence acquisition: one or more LLM controllers issue successive tool calls for retrieval, navigation, cropping, or OCR, and each subsequent decision is conditioned on the outcomes of earlier observations~\cite{zheng2026docvstar,sun2025docagent}. Roles such as inspection, synthesis, and adjudication may be distributed across heterogeneous backbones~\cite{yu2025mact,wang2025vidorag}, but the defining property is that the trajectory itself adapts to question difficulty rather than following a fixed control flow; multi-component systems with predetermined execution order, even when described as ``agents'', remain within the retriever-generator family. By lifting the single-retrieval-step bottleneck of retriever-generator systems, this design allows compute to scale with question difficulty rather than document length and exposes the trajectory as an inspectable audit trail. However, the variable-length action sequence makes inference cost difficult to bound before execution, controllers remain sensitive to prompt phrasing and may commit early to wrong evidence with silent failure, reproducibility is complicated by stochastic generation, and the system inherits the recall ceiling of every retriever, parser, or OCR module it calls.
 
-Across all four families, the retrievable or attendable evidence pool is bounded by the input document; this shared assumption returns as the central pivot in \S\ref{sec:gaps}. Before reaching that point, the next three sections review how the families represent multimodal evidence (\S\ref{sec:modalities}), how they are trained (\S\ref{sec:training}), and the training-free retrieval and reasoning machinery that has come to define the retriever-generator and agentic frontier (\S\ref{sec:trainingfree}).
-
-% =============================================================
 \section{Multi-Page Multimodal Representation}
 \label{sec:modalities}
-% =============================================================
 
-The architectural choice of \emph{where} cross-page evidence is processed is only half the story; \emph{what} that evidence looks like in each modality drives the rest. Multi-page settings strain text, visual, and structural representation in ways that single-page systems, adequately covered by prior surveys~\cite{ding2025survey}, do not face. The three subsections below identify, for each modality, the multi-page-specific pressure and the small number of design responses that recur across the literature. The recurring response to all three pressures is some form of selective reading rather than uniform encoding, which is the substrate the project's agentic direction inherits.
+While \S\ref{sec:architecture} categorises systems by where cross-page evidence is processed, the design challenges of MP-VRDU also differ substantially across modalities. Text often exceeds the backbone's context window and is sparsely distributed across pages; visual encoding cost grows with both page count and per-page resolution, making full-document high-fidelity encoding impractical; and cross-page document structure such as section hierarchies, multi-page tables, and cross-references is not captured by the per-token layout signals inherited from single-page VRDU. The three subsections below examine these modalities in turn, focusing on what distinguishes their handling in MP-VRDU from the single-page substrate reviewed in \S\ref{sec:background}. Modality fusion is a cross-cutting concern across all three, but SP and MP systems differ less here than in the modality-specific challenges above, so it is treated as out of scope for this review.
 
 \subsection{Text Modality}
 The pressures specific to multi-page text are twofold: documents often exceed the backbone's context window, and even when they fit, the answer occupies a small fraction of a long input where attention is diluted and key statements are easily lost in the middle~\cite{liu2024lost}. Responses cluster into three patterns. \textbf{Per-page aggregation} encodes each page in detail and combines the results into compact cross-page summaries through attention or memory tokens~\cite{tito2023hierarchical,blau2024gram,borchmann2025arctic}. \textbf{Whole-document compression} keeps every page within a single backbone context by aggressively reducing per-page text tokens through resamplers, layout-aware compressors, or token-reduction modules~\cite{hu2025mplug2,yu2024texthawk2}. \textbf{Retrieve-then-read} abandons full-document encoding entirely, indexing text at chunk or page level and passing only a retrieved subset to the reader; agentic variants extend this into multiple selection-reading rounds~\cite{zhang2024cream,shin2025multidocfusion,sun2025docagent,han2025mdocagent}. Each pattern fails in a characteristic way: per-page aggregation discards token-level detail at the summary step, whole-document compression sacrifices fine-grained reading on individual pages, and retrieve-then-read makes evidence missed at retrieval unrecoverable at the reading stage. The third failure mode is the most consequential for the present project, since it is shared by every retriever-generator and agentic system surveyed in \S\ref{sec:trainingfree}.
@@ -166,31 +106,28 @@ Multi-page visual encoding must remain fine-grained enough to recover charts, ta
 \subsection{Layout and Cross-Page Structure}
 The structural problem distinctive to multi-page VRDU is \emph{cross-page} structure: section hierarchies that span multiple pages, information referenced or continued across page boundaries, and document-level relationships such as figure-to-text or table-to-caption linkages that no longer fit within a single page's view. Within-page mechanisms inherited from single-page VRDU, such as 2D positional encodings, bounding-box coordinates, and reading-order signals attached to individual tokens~\cite{ding2025survey}, describe only per-page geometry, and per-token boxes do not encode cross-page relationships. End-to-end pretraining of cross-page structure has been attempted~\cite{hu2025mplug2,duan2025docopilot} but is limited by the cost of supervision at this scale. The dominant route is therefore to expose parsed structural information to the model directly, through three patterns. \textbf{Structure-aware chunking} uses a parser to extract section trees and heading hierarchies, then segments documents along semantic boundaries so retrieved units respect section scope rather than sliding-window cuts~\cite{shin2025multidocfusion}. \textbf{Hierarchical retrieval indices} route queries first to coarse units such as sections or chapters and then to fine-grained chunks within the selected branch~\cite{gong2025mhier,zhang2026mldocrag}. \textbf{Graph-based traversal} converts headings, entities, and cross-references into a knowledge graph, allowing controllers to follow typed edges rather than relying on dense similarity alone~\cite{wang2024knowledge}. All three depend on parser quality, so errors in heading detection, table-boundary segmentation, or reading-order extraction propagate directly into every downstream retrieval and navigation step. This dependence is a structural fragility the project inherits, but, as \S\ref{sec:gaps} argues, it is not the limit this project sets out to address.
 
-% =============================================================
 \section{Training Strategies}
 \label{sec:training}
-% =============================================================
 
 How multi-page systems are trained tracks closely with the architectural family they sit in, and the literature has converged on a small set of strategies. This review treats them compactly: the trajectory of interest for this project is the move from monolithic supervised pretraining toward retrieval- and reasoning-targeted objectives, which sets up the training-free orchestration that follows in \S\ref{sec:trainingfree}.
 
-\paragraph{Parameter-Efficient Tuning on Frozen Backbones.}
+\subsection{Parameter-Efficient Tuning on Frozen Backbones.}
 The most common strategy reuses strong pretrained LLMs or large vision-language models (LVLMs) and updates only a small number of task-specific components such as LoRA~\cite{hu2021lora}, projectors, adapters, layout tokenizers, or task-specific heads, leaving the bulk of pretrained parameters frozen. LayTokenLLM~\cite{zhu2025simple} keeps the LLM backbone frozen and introduces a lightweight layout-tokenisation module together with LoRA-based adaptation; CREAM~\cite{zhang2024cream} extends a similar idea to retrieval-augmented settings; and MoLoRAG~\cite{wu2025molorag} fine-tunes only the retrieval engine over a page graph.
 
-\paragraph{Curriculum and Multi-Stage Training.}
+\subsection{Curriculum and Multi-Stage Training.}
 Direct adaptation of single-page models to multi-page objectives tends to underperform on cross-page dependencies, so many works adopt progressive curricula that start from simpler local tasks. DocSLM~\cite{hannan2025docslm} moves from image-OCR alignment through image- and document-level compression to instruction tuning; mPLUG-DocOwl2~\cite{hu2025mplug2} follows a related OCR-free staged strategy, first ensuring that compressed visual tokens preserve text and layout, then pretraining on multi-page parsing.
 
-\paragraph{Self-Supervised Retrieval Training.}
+\subsection{Self-Supervised Retrieval Training.}
 Because retrieval-augmented pipelines are bounded by retriever quality, a growing line of work trains dedicated retrieval components directly. VDocRAG~\cite{tanaka2025vdocrag} introduces self-supervised representation-compression objectives that align dense visual document representations with OCR-derived textual content, and DFVC~\cite{qian2026accurate} trains only a lightweight cross-page fusion adapter on top of a frozen VisRAG or ColQwen backbone. This subline matters here because the visual retrievers it produces are the same components that an external-knowledge agentic system would deploy against a non-document corpus.
 
-\paragraph{Reinforcement Learning for Reasoning.}
+\subsection{Reinforcement Learning for Reasoning.}
 Most recent and most directly relevant to the agentic frontier, several systems use reinforcement learning to optimise multi-step reasoning. DocR1~\cite{xiong2026docr1} introduces Evidence Page-Guided GRPO, rewarding the model for first identifying evidence pages and then generating an answer; Doc-V$^{*}$~\cite{zheng2026docvstar} combines supervised trajectory distillation with GRPO over a composite reward; and MACT~\cite{yu2025mact} extends RL to multi-agent settings with mixed per-agent and global rewards. These methods demonstrate that reasoning-quality signals, and not only answer correctness, can be optimised end-to-end, which becomes a prerequisite for training agents whose tools include both intra-document and external retrieval.
 
-% =============================================================
+
 \section{Training-Free Strategies}
 \label{sec:trainingfree}
-% =============================================================
 
-Training-free orchestration is the locus of the current MP-VRDU frontier and the substrate on which this project builds, so it warrants the most detailed treatment of any section in this review. These strategies improve performance without updating backbone parameters, ranging from offline document-side preparation (parsing into a graph, tree, or outline) to inference-time orchestration through prompting, tool use, retrieval refinement, and multi-agent coordination. They dominate the retriever-generator and agentic families introduced in \S\ref{sec:architecture}, and the project's contribution, an external-retrieval action inside an agentic loop, extends one of the patterns described below.
+Training-free orchestration is the locus of the current MP-VRDU frontier and the substrate on which this project builds, so it warrants the most detailed treatment of any section in this review. These strategies improve performance without updating backbone parameters, ranging from offline document-side preparation (parsing into a graph, tree, or outline) to inference-time orchestration through prompting, tool use, retrieval refinement, and multi-agent coordination. They dominate the retriever-generator and agentic families introduced in \S\ref{sec:architecture}, and the three stages surveyed below, retrieval and navigation, inference-time reasoning, and multi-agent decomposition, correspond directly to the methodological loci at which the project's eventual intervention will be inserted.
 
 \subsection{Retrieval and Navigation Techniques}
 Training-free retrieval uses off-the-shelf encoders, document structure, or LLMs as routers and re-rankers to select page or chunk evidence. Because retrieval quality bounds every downstream reasoning method, the choice of retrieval signal dominates system behaviour on long documents, and it is the most important locus at which an external evidence source could be introduced.
@@ -226,23 +163,21 @@ The simplest configuration runs dedicated text and image agents in parallel afte
 A second sub-pattern inserts an explicit verifier between proposal and answer. Adjudication-based variants sample multiple candidate answers and route them through an adjudicator that selects the most consistent conclusion~\cite{zhu2025doclens}; actor-reviewer variants pair the answering agent with a reviewer that cross-checks through complementary tools and writes disagreements into a shared reflection memory~\cite{sun2025docagent}. Adjudication catches errors that fusion cannot, but the verifier typically draws on the same backbone family as the actor, so shared blind spots persist.
 
 \paragraph{Adaptive Orchestration.}
-The most flexible designs treat the loop itself as adaptive, allocating compute per question and per role. ViDoRAG~\cite{wang2025vidorag} cycles a seeker, an inspector, and an answerer with a Gaussian-mixture model setting per-query $K$ bounds from the similarity distribution; MACT~\cite{yu2025mact} decomposes the loop into planning, execution, judgement, and answer agents with agent-wise adaptive test-time scaling, separating the judge from the corrector to avoid the same agent excusing its own errors. Adaptive orchestration improves the accuracy-latency trade-off but pays in latency that scales with both rounds and agents. Despite the rapid proliferation of multi-agent designs, the verification and critique mechanisms used inside MP-VRDU agents remain comparatively shallow next to those developed in the broader LLM-agent literature, an asymmetry that \S\ref{sec:gaps} and \S\ref{sec:external} take up as a candidate locus for methodological improvement.
+The most flexible designs treat the loop itself as adaptive, allocating compute per question and per role. ViDoRAG~\cite{wang2025vidorag} cycles a seeker, an inspector, and an answerer with a Gaussian-mixture model setting per-query $K$ bounds from the similarity distribution; MACT~\cite{yu2025mact} decomposes the loop into planning, execution, judgement, and answer agents with agent-wise adaptive test-time scaling, separating the judge from the corrector to avoid the same agent excusing its own errors. Adaptive orchestration improves the accuracy-latency trade-off but pays in latency that scales with both rounds and agents. Despite the rapid proliferation of multi-agent designs, the verification and critique mechanisms used inside MP-VRDU agents remain comparatively shallow next to those developed in the broader LLM-agent literature, an asymmetry that \S\ref{sec:gaps} and \S\ref{sec:targets} take up as a candidate locus for methodological improvement.
 
-% =============================================================
+
 \section{Datasets and Evaluation}
 \label{sec:datasets}
-% =============================================================
 
-Dataset and benchmark choices both reflect and reinforce the closed-corpus assumption identified in the preceding sections, which is the principal reason this review treats them as a single concern rather than as a neutral inventory.
+Dataset and benchmark choices both shape and constrain what a methodology project can demonstrate in MP-VRDU, which is why this review treats them as a single concern rather than as a neutral inventory.
 
-Pretraining data reuses general-purpose document archives such as IIT-CDIP~\cite{lewis2006iitcdip} and DocStruct4M~\cite{hu2024mplug1.5} originally designed for single-page tasks; genuinely multi-page corpora have only recently emerged through MP-DocStruct1M, Doc-750K, and PaperPDF~\cite{hu2025mplug2,duan2025docopilot,xie2024wukong}. Fine-tuning has shifted to bespoke synthetic generation per model, with strong LVLMs writing question-answer or trajectory data over scraped PDFs because per-page annotation does not scale to long documents~\cite{tanaka2024instructdoc,jain2025simpledoc,xiong2026docr1,zhang2026docdancer}. Benchmarks have moved from mid-length extractive evaluation on MP-DocVQA, DUDE, and SlideVQA~\cite{tito2023hierarchical,van2023document,tanaka2023slidevqa} to long-context multimodal evaluation on MMLongBench-Doc, LongDocURL, and M-LongDoc~\cite{ma2024mmlongbench,deng2025longdocurl,chia2025m}, with retrieval and page-localisation increasingly scored alongside answer accuracy~\cite{hui2024uda,xiong2026docr1,zhu2025doclens}. MP-DocVQA, MMLongBench-Doc, DUDE, DocVQA, and InfographicVQA dominate cross-model comparison.
+Pretraining data reuses general-purpose document archives such as IIT-CDIP~\cite{lewis2006iitcdip} and DocStruct4M~\cite{hu2024mplug1.5} originally designed for single-page tasks; genuinely multi-page corpora have only recently emerged through MP-DocStruct1M, Doc-750K, and PaperPDF~\cite{hu2025mplug2,duan2025docopilot,xie2024wukong}. Fine-tuning has shifted to bespoke synthetic generation per model, with strong LVLMs writing question-answer or trajectory data over scraped PDFs as per-page annotation does not scale to long documents~\cite{tanaka2024instructdoc,jain2025simpledoc,xiong2026docr1,zhang2026docdancer}. Benchmarks have moved from mid-length extractive evaluation on MP-DocVQA, DUDE, and SlideVQA~\cite{tito2023hierarchical,van2023document,tanaka2023slidevqa} to long-context multimodal multi-hop evaluation on MMLongBench-Doc, LongDocURL, and M-LongDoc~\cite{ma2024mmlongbench,deng2025longdocurl,chia2025m}, with retrieval and page-localisation increasingly scored alongside answer accuracy~\cite{hui2024uda,xiong2026docr1,zhu2025doclens}. MP-DocVQA, MMLongBench-Doc, DUDE, DocVQA, and InfographicVQA dominate cross-model comparison.
 
-Two structural features of this landscape matter for the project's framing. First, a small number of benchmarks (MP-DocVQA, MMLongBench-Doc, LongDocURL, DUDE) appear in roughly half or more of the surveyed papers and constitute the de-facto axes for cross-model comparison, which means a methodology contribution can be measured head-to-head against a substantial competitor set provided it reports on this same surface. Second, heavy reuse of the same benchmarks across training mixes and evaluation suites~\cite{ma2024mmlongbench,deng2025longdocurl} raises a contamination concern that any methodology project must address explicitly through ablations and multi-benchmark reporting. Both features are revisited in \S\ref{sec:external} when specifying the target systems and evaluation surface.
+Two structural features of this landscape matter for the project's framing. First, a small number of benchmarks (MP-DocVQA, MMLongBench-Doc, LongDocURL, DUDE) appear in roughly half or more of the surveyed papers and constitute the de-facto axes for cross-model comparison, which means a methodology contribution can be measured head-to-head against a substantial competitor set provided it reports on this same surface. Second, heavy reuse of the same benchmarks across training mixes and evaluation suites~\cite{ma2024mmlongbench,deng2025longdocurl} raises a contamination concern that any methodology project must address explicitly through ablations and multi-benchmark reporting. Both features are revisited in \S\ref{sec:targets} when specifying the target systems and evaluation surface.
 
-% =============================================================
+
 \section{Open Problems and the Agentic Frontier}
 \label{sec:gaps}
-% =============================================================
 
 Sections \ref{sec:architecture}--\ref{sec:datasets} characterised how MP-VRDU systems represent documents, how they are trained, and the training-free machinery that has come to define the retriever-generator and agentic frontier. This section consolidates the resulting open problems, with the synthesis ordered by how tractable each problem is as a target for methodology research and by how directly improvement on each would register on the field's standard benchmarks.
 
@@ -278,10 +213,10 @@ The pattern recovered from \S\ref{sec:trainingfree} and reinforced by the gap an
 
 This pattern is the pivot for the remainder of the review. The project pursues a methodology contribution in the same spirit: targeting a small set of leading agentic or retriever-generator systems that share benchmarks, identifying a specific methodological weakness in their retrieval, reasoning, or aggregation stages, and proposing a novel technique whose contribution can be measured head-to-head against the targets' reported numbers. The following section consolidates the candidate target systems, the methodological loci at which intervention is most likely to yield measurable gains, and the techniques from adjacent literatures that the project may draw on when selecting a final intervention.
 
-% =============================================================
+
 \section{Targets and Loci for Methodological Improvement}
-\label{sec:external}
-% =============================================================
+\label{sec:targets}
+
 
 The project pursues a methodology contribution targeted at existing agentic or retriever-generator systems rather than a new architecture, dataset, or training paradigm. This section organises that direction along three axes: the candidate target systems whose shared benchmark coverage makes head-to-head comparison feasible (\S\ref{sec:external-targets}), the specific methodological loci at which a novel technique can be inserted with measurable effect (\S\ref{sec:external-loci}), and the techniques developed in adjacent literatures that the project will draw on when selecting an intervention (\S\ref{sec:external-techniques}). The final subsection states what the project commits to and what remains open.
 
@@ -334,15 +269,15 @@ The project commits to a methodology research direction with three constraints f
 
 The choice of specific technique remains open and will be made on the basis of empirical pilots: which of the techniques surveyed in \S\ref{sec:external-techniques}, applied at which locus and on which target system, produces the largest reliable gain on the shared benchmarks. The contribution this review motivates is therefore narrow but specific in scope: not a new architecture, not a new dataset, but a measurable methodological improvement on an existing baseline, evaluated under conditions designed to surface the contribution cleanly and to satisfy the diagnostic constraints on evaluation integrity and reproducibility identified in \S\ref{sec:gaps}.
 
-% =============================================================
+
 \section{Conclusion}
-% =============================================================
+
 
 Multi-page visually rich document understanding has consolidated around a clear architectural taxonomy and an increasingly elaborate body of training-free orchestration, with the retriever-generator and agentic families dominating the current frontier. The combined machinery of these families supplies adaptive evidence acquisition, modality-aware retrieval, and verification-based reasoning. The most fruitful recent advances have come from localised methodological refinements layered on top of a relatively stable architectural substrate~\cite{zheng2026docvstar,wang2025vidorag,yu2025mact}, suggesting that further gains are reachable at the retrieval, reasoning, orchestration, and training-side loci consolidated in this review. The project this review motivates pursues that pattern: a methodology contribution at one of those loci, applied to a small set of leading agentic or retriever-generator targets and evaluated against their published numbers on shared benchmarks. The specific technique remains to be selected through empirical pilots, but the surrounding decisions of target system, methodological locus, and evaluation surface are committed and consistent with the trajectory of the field.
 
 % Bibliography style is set inside acl.sty as acl_natbib.bst; we have replaced
 % that file with IEEEtran's content so numeric IEEE-style entries are produced.
-\bibliography{custom}
+\bibliography{custom,sp_custom}
 
 \appendix
 
