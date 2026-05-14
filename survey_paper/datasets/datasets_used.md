@@ -65,10 +65,10 @@ Naming conventions:
 | VisualMRC | mPLUG-DocOwl2; VDocRAG; DocR1; CREAM | mPLUG-DocOwl2: SFT. VDocRAG: VDocGenerator SFT. DocR1: EviBench training. CREAM: layout-rich web SFT. |
 | DocReason25K | mPLUG-DocOwl2 | mPLUG-DocOwl2: document reasoning SFT. |
 | MP-DocVQA | mPLUG-DocOwl2; Hi-VT5†; LayTokenLLM; RAG-DocVQA; Self-Attention Scoring; Docopilot; DFVC; CREAM; GRAM; RM-T5; Doc-V*; DocSLM; M2RAG; DocR1; PDF-WuKong | Hi-VT5: introduced and used as primary SFT corpus. mPLUG-DocOwl2: multi-page SFT. LayTokenLLM/RAG-DocVQA/CREAM/GRAM/Self-Attention Scoring/RM-T5: standard supervised FT for multi-page VQA. Docopilot: 51K Qs in mix. DFVC: 80% split for adapter training. Doc-V*: SFT with 9,019 trajectories. DocSLM: curriculum FT. M2RAG: VLM FT. DocR1: EviBench training. PDF-WuKong: SFT. |
-| DUDE | mPLUG-DocOwl2; VDocRAG; LayTokenLLM; RAG-DocVQA; Arctic-TILT; GRAM; Doc-V*; DocSLM; CREAM; DocR1; PDF-WuKong; Docopilot; DocDancer | Most papers: standard supervised FT. Doc-V*: trajectories for SFT. DocSLM: curriculum FT. DocDancer: source documents for synthesizing training trajectories. Docopilot: 27K Qs in mix. Arctic-TILT: diverse-domain FT. |
+| DUDE | mPLUG-DocOwl2; VDocRAG; LayTokenLLM; RAG-DocVQA; Arctic-TILT; GRAM; Doc-V*; CREAM; DocR1; PDF-WuKong; Docopilot; DocDancer | Most papers: standard supervised FT. Doc-V*: trajectories for SFT. DocDancer: source documents for synthesizing training trajectories. Docopilot: 27K Qs in mix. Arctic-TILT: diverse-domain FT. |
 | MP-DocReason51K† | mPLUG-DocOwl2 | mPLUG-DocOwl2: introduced multi-page reasoning SFT data. |
 | DocGenome12K | mPLUG-DocOwl2 | mPLUG-DocOwl2: document structure SFT. |
-| NewsVideoQA | mPLUG-DocOwl2; DocSLM | mPLUG-DocOwl2: video-document SFT. DocSLM: cross-domain FT for text-rich video QA. |
+| NewsVideoQA | mPLUG-DocOwl2 | mPLUG-DocOwl2: video-document SFT. |
 | OpenWikiTable | VDocRAG | VDocRAG: VDocGenerator SFT for table QA. |
 | MPMQA | VDocRAG | VDocRAG: multi-page document SFT. |
 | SlideVQA | VDocRAG; DocR1; ViDoRAG | VDocRAG: VDocGenerator SFT. DocR1: EviBench training. ViDoRAG: refined into ViDoSeek benchmark. |
@@ -86,7 +86,7 @@ Naming conventions:
 | ShareGPT4V | Leopard | Leopard: natural-image SFT to preserve general capability. |
 | DocHieNet | MultiDocFusion | MultiDocFusion: hierarchical document parsing FT. |
 | HRDH | MultiDocFusion | MultiDocFusion: academic-document hierarchy FT. |
-| MMLongBench-Doc | MoLoRAG; DocSLM; DFVC | MoLoRAG: 5,500 GPT-4o-synthesised QA pairs to train logical relevance scorer. DocSLM: curriculum FT. DFVC: 80% split for adapter training. |
+| MMLongBench-Doc | MoLoRAG; DFVC | MoLoRAG: 5,500 GPT-4o-synthesised QA pairs to train logical relevance scorer. DFVC: 80% split for adapter training. |
 | LongDocURL | MoLoRAG; DocDancer | MoLoRAG: document snapshots used for synthetic-data generation. DocDancer: source documents for training trajectory synthesis. |
 | MMDocRAG | DocDancer | DocDancer: source documents for training trajectory synthesis. |
 | CUAD | DocDancer | DocDancer: source documents for training trajectory synthesis. |
@@ -129,6 +129,7 @@ Naming conventions:
 | ST-VQA | Texthawk2 | Texthawk2: scene-text VQA FT. |
 | ESTVQA | Texthawk2 | Texthawk2: scene-text VQA FT. |
 | PaperPDF† | PDF-WuKong | PDF-WuKong: 1.1M-pair SFT corpus from scientific PDFs (introduced). |
+| ScienceQA | InstructDoc | InstructDoc: held-in multimodal science instruction tuning. |
 
 ---
 
@@ -136,15 +137,15 @@ Naming conventions:
 
 | Dataset | Papers | Usage per paper |
 |---|---|---|
-| MP-DocVQA | mPLUG-DocOwl2; Hi-VT5†; RAG-DocVQA; LayTokenLLM; Self-Attention Scoring; GRAM; RM-T5; Arctic-TILT; AVIR; DocR1; Doc-V*; DocSLM; M3DocRAG; PDF-WuKong; Leopard; M2RAG; CREAM; DFVC | Standard multi-page VQA evaluation; Hi-VT5 introduces the dataset (46K Qs, 5,928 docs). Self-Attention Scoring also evaluates on the extended version (up to 793 pages). M2RAG uses it as one of its closed-domain test sets. |
+| MP-DocVQA | mPLUG-DocOwl2; Hi-VT5†; RAG-DocVQA; LayTokenLLM; Self-Attention Scoring; GRAM; RM-T5; Arctic-TILT; AVIR; DocR1; Doc-V*; DocSLM; M3DocRAG; PDF-WuKong; Leopard; CREAM; DFVC | Standard multi-page VQA evaluation; Hi-VT5 introduces the dataset (46K Qs, 5,928 docs). Self-Attention Scoring also evaluates on the extended version (up to 793 pages). |
 | DocVQA | mPLUG-DocOwl2; Leopard; LayTokenLLM; Self-Attention Scoring; Hi-VT5; Arctic-TILT; DocR1; CREAM; PDF-WuKong; MACT; Texthawk2; CoR; DocReact; Docopilot | Single-page document VQA evaluation across many papers. |
 | DUDE | Leopard; RAG-DocVQA; LayTokenLLM; GRAM; Arctic-TILT; AVIR; DocR1; Doc-V*; DocSLM; CREAM; PDF-WuKong; MultiDocFusion; MACT; M3DocRAG; VDocRAG; MLDocRAG | Multi-domain multi-page document understanding evaluation. |
 | MMLongBench-Doc | MoLoRAG; SimpleDoc; DocReact; MDocAgent; DocAgent; MLDocRAG; MHier-RAG; MACT; DocLens; M2RAG; DocDancer; M3DocRAG; Doc-V*; DocSLM; Arctic-TILT; CoR; Docopilot | Long-context multimodal document QA evaluation (135 docs / 1,082–1,091 questions, ~47.5 pages avg). Arctic-TILT evaluates on documents up to 400 pages. Doc-V* evaluates up to 468 pages. |
 | LongDocURL | MoLoRAG; SimpleDoc; MDocAgent; MLDocRAG; MHier-RAG; DocLens; M2RAG; Doc-V*; CoR; DocDancer | Comprehensive long multimodal document evaluation (396 docs / 2,325 Qs / 85.6 pages avg). |
 | SlideVQA | DocReact; MACT; Arctic-TILT; AVIR; Leopard; ViDoRAG; MLDocRAG; MHier-RAG; M2RAG; Doc-V*; DocR1; VDocRAG; MDocAgent | Slide-presentation QA evaluation. ViDoRAG refines this into the ViDoSeek benchmark. |
-| ChartQA | VDocRAG (zero-shot); MACT; Texthawk2; Leopard; DocR1; PDF-WuKong; ViDoRAG; DocReact; CoR; Docopilot | Chart QA evaluation. |
-| InfographicVQA | Hi-VT5; Arctic-TILT; RAG-DocVQA; MACT; Leopard; DocR1; CREAM; PDF-WuKong; ViDoRAG; M3DocRAG; VDocRAG; Texthawk2; InstructDoc; Docopilot | Infographic VQA evaluation. |
-| VisualMRC | Hi-VT5; MACT; DocR1; CREAM; InstructDoc; AVIR; CREAM | Visual reading comprehension evaluation. |
+| ChartQA | VDocRAG (zero-shot); MACT; Texthawk2; DocR1; PDF-WuKong; CoR; Docopilot | Chart QA evaluation. |
+| InfographicVQA | Hi-VT5; Arctic-TILT; RAG-DocVQA; MACT; DocR1; CREAM; PDF-WuKong; M3DocRAG; VDocRAG; Texthawk2; InstructDoc; Docopilot | Infographic VQA evaluation. |
+| VisualMRC | Hi-VT5; MACT; DocR1; CREAM; InstructDoc | Visual reading comprehension evaluation. |
 | TextVQA | Leopard; DocR1; Texthawk2 | Scene-text VQA evaluation. |
 | TabFact | DocR1; Texthawk2; InstructDoc | Table-fact verification evaluation. |
 | WikiTableQuestions | DocR1; Texthawk2 | Table QA evaluation. |
@@ -154,16 +155,14 @@ Naming conventions:
 | FUNSD | LayTokenLLM; InstructDoc | Form-entity extraction held-out evaluation (50 images). |
 | CORD | LayTokenLLM; InstructDoc | Receipt-entity extraction held-out evaluation (100 images). |
 | SIBR | LayTokenLLM | Real-world VIE evaluation set (400 images). |
-| TAT-DQA | Hi-VT5; Arctic-TILT | Table-aware document QA evaluation. |
-| DocCVQA | Hi-VT5 | Single-page DocVQA-style evaluation. |
-| DuReaderVis | Hi-VT5 | Visual reading evaluation comparison. |
+| TAT-DQA | Arctic-TILT | Table-aware document QA evaluation. |
 | PaperTab | MoLoRAG; SimpleDoc; MDocAgent | Tabular QA from academic papers (393 Qs / 307 docs). |
 | FetaTab | MoLoRAG; SimpleDoc; MDocAgent | Table QA evaluation (1,016 Qs / 871 docs). |
 | PaperText | MDocAgent | Document text understanding evaluation. |
-| M3DocVQA† | M3DocRAG; Doc-V* | Open-domain multi-doc VQA introduced by M3DocRAG (2,441 Qs / 3,368 PDFs / 41K pages). Doc-V* uses it for OOD evaluation. |
+| M3DocVQA† | M3DocRAG | Open-domain multi-doc VQA introduced by M3DocRAG (2,441 Qs / 3,368 PDFs / 41K pages). |
 | ViDoSeek† | ViDoRAG | Newly introduced visually-rich document retrieval/QA benchmark (~1.2K Qs / 6K images), refined from SlideVQA. |
 | OpenDocVQA† | VDocRAG | Newly introduced unified open-domain DocVQA benchmark. |
-| InstructDoc† | InstructDoc; VDocRAG; AVIR | InstructDoc: 30-source held-out zero-shot evaluation. VDocRAG / AVIR: used as zero-shot evaluation set. |
+| InstructDoc† | InstructDoc | InstructDoc: 30-source held-out zero-shot evaluation. |
 | DocBench | DocAgent; DocDancer; M2RAG | Multi-page evaluation (229 docs / ~1,082–1,102 Qs). |
 | HotpotQA | KGP | 500-question multi-document QA evaluation. |
 | IIRC | KGP | 477-question multi-document QA evaluation. |
@@ -177,7 +176,7 @@ Naming conventions:
 | ArXivLay | Arctic-TILT | Scientific paper summarisation evaluation. |
 | MMMU | Leopard | Multimodal multitask benchmark. |
 | MathVista | Leopard; MACT | Mathematical visual reasoning evaluation. |
-| ScienceQA | Leopard; MACT; InstructDoc | Multimodal science QA evaluation. |
+| ScienceQA | Leopard; MACT | Multimodal science QA evaluation. |
 | MIRB | Leopard | Multimodal information retrieval benchmark. |
 | MiBench | Leopard | Multimodal benchmark. |
 | CharXiv | MACT | Chart-based benchmark. |
@@ -186,8 +185,9 @@ Naming conventions:
 | RealWorldQA | MACT | Real-world QA benchmark. |
 | MathVision | MACT | Mathematical reasoning benchmark. |
 | MathVerse | MACT | Mathematical reasoning benchmark. |
-| FinRAGBench-V | DocLens; Docopilot | Financial-domain multimodal RAG evaluation with visual citations. |
-| MMNIAH | Docopilot | Long-form PDF understanding ("needle-in-a-haystack") evaluation. |
+| FinRAGBench-V | DocLens | Financial-domain multimodal RAG evaluation with visual citations. |
+| MM-NIAH | Docopilot | Long-form PDF understanding ("needle-in-a-haystack") evaluation. |
+| NewsVideoQA | DocSLM | Generalisation evaluation for text-rich video QA (qualitative). |
 | DocHieNet | MultiDocFusion | Document-hierarchy parsing evaluation. |
 | HRDH | MultiDocFusion | Academic-document hierarchy evaluation. |
 | MPVQA | MultiDocFusion | Multi-page document QA evaluation. |
@@ -195,11 +195,9 @@ Naming conventions:
 | MOAMOB | MultiDocFusion | Complex document QA evaluation. |
 | ArxivFullQA | DocR1 | Scientific paper QA evaluation. |
 | TATDoc | DocR1 | Table-aware document reasoning evaluation. |
-| NewsVideoQA | DocSLM | Video QA with text evaluation. |
 | OCRBench | Texthawk2 | OCR capability benchmark. |
 | RefCOCO / RefCOCO+ / RefCOCOg | Texthawk2 | Referring expression comprehension benchmarks. |
 | PaperPDF† | PDF-WuKong | Long-PDF QA test split (introduced alongside the training corpus). |
-| SingleDocVQA | Hi-VT5 | Single-page DocVQA used as a baseline comparison. |
 
 ---
 

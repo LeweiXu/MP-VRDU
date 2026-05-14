@@ -1,10 +1,10 @@
 ID,Name,Bibtex,Pages,Type,Venue,Domain,# Documents,Avg # Pages,Num Q/A,Multi/S Hop
 1,Doc-750K,duan2025docopilot,MP,IT/FT,CVPR,Academic Paper,-,-,"758,000",M+S
-2,DUDE,van2023document,MP,B,ICCV,Cross-domain,5019,5.72,"41,541",M+S
+2,DUDE,van2023dude,MP,B,ICCV,Cross-domain,5019,5.72,"41,541",M+S
 3,LongDocURL,deng2025longdocurl,MP,B,ACL,Cross-domain,396,85.6,"2,325",M+S
 4,M-LongDoc,chia2025m,MP,PT+BM,EMNLP,Cross-domain,180,210.8,851,S
 5,M3DocVQA,cho2025m3docvqa,MP,B,CVPR,Wikipedia Articles,3368,12.2,"2,441",M+S
-6,MM-NIAH,wang2024needle,MP,B,NeurIPS,Synthetic,-,-,"16,486",M+S
+6,MM-NIAH,wang2024mmniah,MP,B,NeurIPS,Synthetic,-,-,"16,486",M+S
 7,MMLongBench-Doc,ma2024mmlongbench,MP,B,NeurIPS,Cross-domain,135,47.5,"1,082",M+S
 8,MMVQA,ding2024mmvqa,MP,PT+BM,IJCAI,Biomedical,3146,9.6,"262,928",M+S
 9,MP-DocVQA,tito2023hierarchical,MP,PT+BM,PR,Industry,5928,8.27,"46,176",S
@@ -15,20 +15,21 @@ ID,Name,Bibtex,Pages,Type,Venue,Domain,# Documents,Avg # Pages,Num Q/A,Multi/S H
 14,DocVQA,mathew2021docvqa,SP,PT+BM,WACV,Industry,12767,-,"50,000",S
 15,InfographicVQA,mathew2022infographicvqa,SP,PT+BM,WACV,Infographics,"5,485",-,"30,035",M+S
 16,ChartQA,masry2022chartqa,SP,BM,ACL,Charts,20882,-,"32,719",M+S
-17,TextVQA,singh2019towards,SP,PT+BM,CVPR,Scene-text images,28408,-,"45,336",M+S
-18,VisualMRC,tanaka2021visualmrc,SP,PT+BM,AAAI,Webpages,10197,-,"30,562",M
+17,TextVQA,singh2019textvqa,SP,PT+BM,CVPR,Scene-text images,28408,-,"45,336",S
+18,VisualMRC,tanaka2021visualmrc,SP,PT+BM,AAAI,Webpages,10197,-,"30,562",M+S
 19,WikiTableQuestions,pasupat2015compositional,SP,PT+BM,ACL,Wikipedia tables,2108,-,"22,033",M
 20,TabFact,chen2020tabfact,SP,PT+BM,ICLR,Wikipedia tables,16573,-,"118,275",M+S
 21,FeTaQA,nan2022fetaqa,SP,PT+BM,TACL,Wikipedia tables,10330,-,"10,330",M
-22,QASPER,dasigi2021dataset,MP,PT+BM,NAACL,Academic Paper,1585,3.2,"5,049",M
-23,Kleister,stanislawek2021kleister,MP,PT+BM,ICDAR,"Legal, Financial",540,5.98,2160,S
-24,TAT-DQA,zhu2022towards,MP+SP,PT+BM,ACM,Financial reports,2758,1.33,"16,558",M
-25,MultiHiertt,zhao2022multihiertt,MP,PT+BM,ACL,Financial reports,2513,5.98,"10,440",M
-26,DocBench,zou2024docbench,MP,BM,preprint,Cross-domain,229,-,"1,102",S
-27,DocGenome,xia2024docgenome,MP,PT+BM,NeurIPS,Academic Paper,500000,-,-,M+S
-28,DocStruct4M,hu2024mplug,MP+SP,PT+IT/FT,ACL,Cross-domain,N/A,-,"4,000,000",M+S
-29,MMLongBench,wang2025mmlongbench,MP,BM,NeurIPS,Cross-domain,-,-,"13,331",M+S
-30,BRIDGE,xiang2026bridge,MP,BM,preprint,Academic Paper,262,-,"11,857",M
-31,PDF-VQA Task A,ding2023vqa,SP,PT+BM,ECML-PKDD,Biomedical,-,-,81085,S
-32,PDF-VQA Task B,ding2023vqa,SP,PT+BM,ECML-PKDD,Biomedical,-,-,53872,S
-33,PDF-VQA Task C,ding2023vqa,MP,PT+BM,ECML-PKDD,Biomedical,1147,~10,5653,M
+22,QASPER,dasigi2021qasper,MP,PT+BM,NAACL,Academic Paper,1585,~8,"5,049",M
+23,Kleister-NDA,stanislawek2021kleister,MP,PT+BM,ICDAR,Legal,540,5.98,"2,160",S
+24,Kleister-Charity,stanislawek2021kleister,MP,PT+BM,ICDAR,Financial,2778,22.19,"21,612",S
+25,TAT-DQA,zhu2022tatdqa,MP+SP,PT+BM,ACM,Financial reports,2758,1.33,"16,558",M
+26,MultiHiertt,zhao2022multihiertt,MP,PT+BM,ACL,Financial reports,2513,~2.5,"10,440",M
+27,DocBench,zou2024docbench,MP,BM,preprint,Cross-domain,229,-,"1,102",S
+28,DocGenome,xia2024docgenome,MP,PT+BM,NeurIPS,Academic Paper,500000,13, 3000,M+S
+29,DocStruct4M,hu2024mplug,MP+SP,PT+IT/FT,EMNLP,Cross-domain,N/A,-,"4,000,000",M+S
+30,MMLongBench,wang2025mmlongbench,MP,BM,NeurIPS,Cross-domain,-,-,"13,331",M+S
+31,BRIDGE,xiang2026bridge,MP,BM,preprint,Academic Paper,262,-,"11,857",M
+32,PDF-VQA Task A,ding2023vqa,SP,PT+BM,ECML-PKDD,Biomedical,-,-,81085,S
+33,PDF-VQA Task B,ding2023vqa,SP,PT+BM,ECML-PKDD,Biomedical,-,-,53872,S
+34,PDF-VQA Task C,ding2023vqa,MP,PT+BM,ECML-PKDD,Biomedical,1147,~10,5653,M

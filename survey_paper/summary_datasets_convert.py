@@ -22,8 +22,8 @@ import pandas as pd
 
 # -- CLI args -----------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent
-INPUT_CSV = sys.argv[1] if len(sys.argv) > 1 else str(BASE_DIR / "datasets_summary.csv")
-OUTPUT_TEX = sys.argv[2] if len(sys.argv) > 2 else str(BASE_DIR / "datasets_summary.tex")
+INPUT_CSV = sys.argv[1] if len(sys.argv) > 1 else str(BASE_DIR / "datasets" / "datasets_summary.csv")
+OUTPUT_TEX = sys.argv[2] if len(sys.argv) > 2 else str(BASE_DIR / "datasets" / "datasets_summary.tex")
 
 DISPLAY_NAME_MAP = {
     "Name": "Dataset",

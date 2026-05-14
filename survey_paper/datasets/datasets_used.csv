@@ -53,9 +53,9 @@ InfographicVQA,Fine-Tuning,Docopilot,25.5K Qs in instruction mix
 DeepForm,Fine-Tuning,mPLUG-DocOwl2,Form understanding SFT
 DeepForm,Fine-Tuning,Arctic-TILT,Form-extraction FT
 DeepForm,Fine-Tuning,DocR1,Included in EviBench training pool
-KleisterCharity,Fine-Tuning,mPLUG-DocOwl2,Layout/IE SFT (KLC)
-KleisterCharity,Fine-Tuning,Arctic-TILT,Financial-report key-information extraction FT
-KleisterCharity,Fine-Tuning,DocR1,Included in EviBench training pool
+Kleister-Charity,Fine-Tuning,mPLUG-DocOwl2,Layout/IE SFT (KLC)
+Kleister-Charity,Fine-Tuning,Arctic-TILT,Financial-report key-information extraction FT
+Kleister-Charity,Fine-Tuning,DocR1,Included in EviBench training pool
 WikiTableQuestions,Fine-Tuning,mPLUG-DocOwl2,Table understanding SFT (WTQ)
 WikiTableQuestions,Fine-Tuning,DocR1,Included in EviBench training pool
 TabFact,Fine-Tuning,mPLUG-DocOwl2,Table verification SFT
@@ -96,7 +96,6 @@ DUDE,Fine-Tuning,RAG-DocVQA,Embedding model + generator FT
 DUDE,Fine-Tuning,Arctic-TILT,Diverse-domain FT
 DUDE,Fine-Tuning,GRAM,FT on 23.7K Qs (extractive/abstractive reasoning)
 DUDE,Fine-Tuning,Doc-V*,SFT trajectories
-DUDE,Fine-Tuning,DocSLM,Multi-stage curriculum FT
 DUDE,Fine-Tuning,CREAM,Supervised FT
 DUDE,Fine-Tuning,DocR1,EviBench training
 DUDE,Fine-Tuning,PDF-WuKong,SFT
@@ -105,7 +104,8 @@ DUDE,Fine-Tuning,DocDancer,Source documents for synthesizing training trajectori
 MP-DocReason51K,Fine-Tuning,mPLUG-DocOwl2,Introduced multi-page reasoning SFT data
 DocGenome12K,Fine-Tuning,mPLUG-DocOwl2,Document structure SFT
 NewsVideoQA,Fine-Tuning,mPLUG-DocOwl2,Video-document SFT
-NewsVideoQA,Fine-Tuning,DocSLM,Cross-domain FT for text-rich video QA
+ScienceQA,Fine-Tuning,InstructDoc,Held-in multimodal science instruction tuning
+NewsVideoQA,Benchmarking,DocSLM,Generalization eval for text-rich video QA (qualitative)
 OpenWikiTable,Fine-Tuning,VDocRAG,VDocGenerator SFT for table QA
 MPMQA,Fine-Tuning,VDocRAG,Multi-page document SFT
 SlideVQA,Fine-Tuning,VDocRAG,VDocGenerator SFT
@@ -129,7 +129,6 @@ ShareGPT4V,Fine-Tuning,Leopard,Natural-image SFT to preserve general capability
 DocHieNet,Fine-Tuning,MultiDocFusion,Hierarchical document parsing FT
 HRDH,Fine-Tuning,MultiDocFusion,Academic-document hierarchy FT
 MMLongBench-Doc,Fine-Tuning,MoLoRAG,5500 GPT-4o-synthesised QA pairs to train logical relevance scorer
-MMLongBench-Doc,Fine-Tuning,DocSLM,Multi-stage curriculum FT
 MMLongBench-Doc,Fine-Tuning,DFVC,80% split for adapter training
 LongDocURL,Fine-Tuning,MoLoRAG,Document snapshots used for synthetic-data generation
 LongDocURL,Fine-Tuning,DocDancer,Source documents for training trajectory synthesis
@@ -149,7 +148,7 @@ CoR-Dataset,Fine-Tuning,CoR,Introduced 26088 high-quality QA pairs with reasonin
 Mask-AR dataset,Fine-Tuning,CoR,Self-supervised FT on figure-caption pairs from scientific documents
 Preference dataset (DPO),Fine-Tuning,CoR,5000 QA pairs used for Direct Preference Optimization
 InstructDoc,Fine-Tuning,InstructDoc,Introduced 30-source / 12-task instruction set used for instruction tuning
-Kleister NDA,Fine-Tuning,Arctic-TILT,Legal-document key-information extraction FT
+Kleister-NDA,Fine-Tuning,Arctic-TILT,Legal-document key-information extraction FT
 CHART-Infographics,Fine-Tuning,Arctic-TILT,Chart understanding FT
 SQuAD 2.0,Fine-Tuning,Arctic-TILT,Extractive QA FT
 TAT-DQA,Fine-Tuning,Arctic-TILT,Table-aware document QA FT
@@ -191,7 +190,6 @@ MP-DocVQA,Benchmarking,DocSLM,Multi-page document VQA evaluation
 MP-DocVQA,Benchmarking,M3DocRAG,Closed-domain DocVQA evaluation
 MP-DocVQA,Benchmarking,PDF-WuKong,Multi-page document VQA evaluation
 MP-DocVQA,Benchmarking,Leopard,Multi-page document evaluation
-MP-DocVQA,Benchmarking,M2RAG,Closed-domain test set
 MP-DocVQA,Benchmarking,CREAM,Multi-page document VQA evaluation
 MP-DocVQA,Benchmarking,DFVC,Multi-page retrieval/QA benchmark (6k docs / 48k pages)
 DocVQA,Benchmarking,mPLUG-DocOwl2,Single-page document QA evaluation
@@ -266,22 +264,17 @@ SlideVQA,Benchmarking,MDocAgent,Multi-image presentation QA
 ChartQA,Benchmarking,VDocRAG,Chart QA evaluation (zero-shot)
 ChartQA,Benchmarking,MACT,Chart-based benchmark
 ChartQA,Benchmarking,Texthawk2,Chart question answering evaluation
-ChartQA,Benchmarking,Leopard,Chart benchmark
 ChartQA,Benchmarking,DocR1,Chart QA evaluation
 ChartQA,Benchmarking,PDF-WuKong,Chart QA evaluation
-ChartQA,Benchmarking,ViDoRAG,Chart QA evaluation
-ChartQA,Benchmarking,DocReact,Chart question answering
 ChartQA,Benchmarking,CoR,Chart QA evaluation
 ChartQA,Benchmarking,Docopilot,Chart QA evaluation
 InfographicVQA,Benchmarking,Hi-VT5,Infographic evaluation
 InfographicVQA,Benchmarking,Arctic-TILT,Infographic evaluation
 InfographicVQA,Benchmarking,RAG-DocVQA,Infographic understanding evaluation
 InfographicVQA,Benchmarking,MACT,Webpage/infographic benchmark
-InfographicVQA,Benchmarking,Leopard,Infographic VQA evaluation
 InfographicVQA,Benchmarking,DocR1,Infographic understanding evaluation
 InfographicVQA,Benchmarking,CREAM,Infographic understanding evaluation
 InfographicVQA,Benchmarking,PDF-WuKong,Infographic VQA evaluation
-InfographicVQA,Benchmarking,ViDoRAG,Infographic VQA evaluation
 InfographicVQA,Benchmarking,M3DocRAG,Infographic visual QA
 InfographicVQA,Benchmarking,VDocRAG,Infographic QA evaluation (supervised)
 InfographicVQA,Benchmarking,Texthawk2,Infographic VQA evaluation
@@ -292,7 +285,6 @@ VisualMRC,Benchmarking,MACT,Webpage benchmark
 VisualMRC,Benchmarking,DocR1,Visual reading comprehension evaluation
 VisualMRC,Benchmarking,CREAM,Web page document understanding evaluation
 VisualMRC,Benchmarking,InstructDoc,Held-out QA evaluation
-VisualMRC,Benchmarking,AVIR,Web-page evaluation
 TextVQA,Benchmarking,Leopard,Text-rich single-image evaluation
 TextVQA,Benchmarking,DocR1,Text-based visual QA evaluation
 TextVQA,Benchmarking,Texthawk2,Text-rich VQA evaluation
@@ -310,10 +302,7 @@ FUNSD,Benchmarking,InstructDoc,Held-out form-entity extraction
 CORD,Benchmarking,LayTokenLLM,Receipt-entity extraction test set (100 images)
 CORD,Benchmarking,InstructDoc,Held-out receipt-entity extraction
 SIBR,Benchmarking,LayTokenLLM,Real-world VIE test set (400 images)
-TAT-DQA,Benchmarking,Hi-VT5,Table-aware document QA evaluation
 TAT-DQA,Benchmarking,Arctic-TILT,Table-aware document QA evaluation
-DocCVQA,Benchmarking,Hi-VT5,Single-page DocVQA-style baseline
-DuReaderVis,Benchmarking,Hi-VT5,Visual reading evaluation comparison
 PaperTab,Benchmarking,MoLoRAG,Tabular QA from academic papers (393 Qs / 307 docs)
 PaperTab,Benchmarking,SimpleDoc,Table extraction from papers evaluation
 PaperTab,Benchmarking,MDocAgent,Table extraction QA evaluation
@@ -322,12 +311,9 @@ FetaTab,Benchmarking,SimpleDoc,Table QA evaluation
 FetaTab,Benchmarking,MDocAgent,Table QA evaluation
 PaperText,Benchmarking,MDocAgent,Document text understanding evaluation
 M3DocVQA,Benchmarking,M3DocRAG,Open-domain multi-doc VQA introduced (2441 Qs / 3368 PDFs / 41005 pages)
-M3DocVQA,Benchmarking,Doc-V*,Out-of-domain multi-page multi-document VQA
 ViDoSeek,Benchmarking,ViDoRAG,Newly introduced visually-rich document retrieval/QA benchmark (~1.2K Qs / 6K images)
 OpenDocVQA,Benchmarking,VDocRAG,Newly introduced unified open-domain DocVQA benchmark
 InstructDoc,Benchmarking,InstructDoc,30-source held-out zero-shot evaluation
-InstructDoc,Benchmarking,VDocRAG,Used as zero-shot evaluation set
-InstructDoc,Benchmarking,AVIR,Used as zero-shot evaluation set
 DocBench,Benchmarking,DocAgent,Multi-page evaluation (229 docs / 1102 Qs)
 DocBench,Benchmarking,DocDancer,Multi-page evaluation (229 docs / 1082 Qs)
 DocBench,Benchmarking,M2RAG,Open and closed-domain document QA evaluation
@@ -336,8 +322,8 @@ IIRC,Benchmarking,KGP,477-question multi-document QA evaluation
 2WikiMQA,Benchmarking,KGP,500-question multi-document QA evaluation
 MuSiQue,Benchmarking,KGP,500-question multi-document QA evaluation
 PDFTriage,Benchmarking,KGP,Structural document QA evaluation
-KleisterCharity,Benchmarking,Arctic-TILT,Financial-document evaluation
-Kleister NDA,Benchmarking,Arctic-TILT,Legal-document evaluation
+Kleister-Charity,Benchmarking,Arctic-TILT,Financial-document evaluation
+Kleister-NDA,Benchmarking,Arctic-TILT,Legal-document evaluation
 VQA-CD,Benchmarking,Arctic-TILT,Invoices and purchase-order evaluation
 PubMed-Lay,Benchmarking,Arctic-TILT,Scientific document summarisation evaluation
 ArXivLay,Benchmarking,Arctic-TILT,Scientific paper summarisation evaluation
@@ -346,7 +332,6 @@ MathVista,Benchmarking,Leopard,Mathematical visual reasoning evaluation
 MathVista,Benchmarking,MACT,Mathematical reasoning benchmark
 ScienceQA,Benchmarking,Leopard,Science question answering
 ScienceQA,Benchmarking,MACT,General benchmark
-ScienceQA,Benchmarking,InstructDoc,Multimodal science QA evaluation
 MIRB,Benchmarking,Leopard,Multimodal information retrieval
 MiBench,Benchmarking,Leopard,Multimodal benchmark
 CharXiv,Benchmarking,MACT,Chart-based benchmark
@@ -356,8 +341,7 @@ RealWorldQA,Benchmarking,MACT,Real-world QA benchmark
 MathVision,Benchmarking,MACT,Mathematical reasoning benchmark
 MathVerse,Benchmarking,MACT,Mathematical reasoning benchmark
 FinRAGBench-V,Benchmarking,DocLens,Financial-domain multimodal RAG with visual citations
-FinRAGBench-V,Benchmarking,Docopilot,Financial-domain RAG benchmark
-MMNIAH,Benchmarking,Docopilot,Long-form PDF needle-in-a-haystack evaluation
+MM-NIAH,Benchmarking,Docopilot,Long-form PDF needle-in-a-haystack evaluation
 DocHieNet,Benchmarking,MultiDocFusion,Hierarchy parsing evaluation
 HRDH,Benchmarking,MultiDocFusion,Academic-document hierarchy evaluation
 MPVQA,Benchmarking,MultiDocFusion,Multi-page document QA evaluation
@@ -365,10 +349,8 @@ CUAD,Benchmarking,MultiDocFusion,Contract understanding evaluation
 MOAMOB,Benchmarking,MultiDocFusion,Complex document QA evaluation
 ArxivFullQA,Benchmarking,DocR1,Scientific paper QA evaluation
 TATDoc,Benchmarking,DocR1,Table-aware document reasoning evaluation
-NewsVideoQA,Benchmarking,DocSLM,Video QA with text evaluation
 OCRBench,Benchmarking,Texthawk2,OCR capability benchmark
 RefCOCO,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 RefCOCO+,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 RefCOCOg,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 PaperPDF,Benchmarking,PDF-WuKong,Long-PDF QA test split (introduced alongside training corpus)
-SingleDocVQA,Benchmarking,Hi-VT5,Single-page DocVQA baseline comparison

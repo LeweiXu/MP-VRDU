@@ -26,8 +26,8 @@ import pandas as pd
 
 
 BASE_DIR = Path(__file__).resolve().parent
-INPUT_CSV = sys.argv[1] if len(sys.argv) > 1 else str(BASE_DIR / "model_performance.csv")
-_out_base = sys.argv[2] if len(sys.argv) > 2 else str(BASE_DIR / "model_performance")
+INPUT_CSV = sys.argv[1] if len(sys.argv) > 1 else str(BASE_DIR / "models" / "model_performance.csv")
+_out_base = sys.argv[2] if len(sys.argv) > 2 else str(BASE_DIR / "models" / "model_performance")
 _out_base = _out_base[:-4] if _out_base.endswith(".tex") else _out_base
 OUTPUT_ARCH = _out_base + "_arch.tex"
 OUTPUT_OCR = _out_base + "_ocr.tex"

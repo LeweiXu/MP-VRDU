@@ -34,20 +34,20 @@
 \rowcolor{sectionbg}
 \multicolumn{9}{l}{\textbf{OCR-Free}} \\
 \midrule
-  {DocR1}~(\citeyear{xiong2026docr1}) & AAAI & BC & Qwen2.5-VL & Qwen2.5-VL-7B & V & CoT+HD & - & - \\
+  {DocR1}~(\citeyear{xiong2026docr1}) & AAAI & BC & Qwen2.5-VL & Qwen2.5-VL-7B & V & CoT, HD & - & - \\
   {Leopard}~(\citeyear{jia2024leopard}) & TMLR & BC & SigLIP-SO400M & LLaMa-3.1-8B, Mistral-7B & V & CoT & - & - \\
-  {mPLUG-DocOwl2}~(\citeyear{hu2025mplug}) & ACL & BC & ViT-L/14 & mPLUG-Owl2 & V & - & - & - \\
+  {mPLUG-DocOwl2}~(\citeyear{hu2025mplug2}) & ACL & BC & ViT-L/14 & mPLUG-Owl2 & V & - & - & - \\
   {Docopilot$^*$}~(\citeyear{duan2025docopilot}) & CVPR & BC & InternViT-300M & Multiple (Intern) & V & - & - & - \\
   {Texthawk2$^*$}~(\citeyear{yu2024texthawk2}) & preprint & BC & SigLIP-SO400M & Qwen2-7B-Instruct & V & - & - & - \\
   {AVIR}~(\citeyear{li2025avir}) & ACM & RAG & Pix2Struct & Qwen2.5-VL-3B-AWQ & V & HD & D & 1A \\
   {DFVC}~(\citeyear{qian2026accurate}) & MDPI & RAG & VisRAG, ColQwen & Qwen2-VL-2B-Instruct & V & - & D & - \\
   {M3DocRAG}~(\citeyear{cho2024m3docrag}) & preprint & RAG & ColPali, ColQwen & Multiple (Qwen/Intern/Idefics) & V & - & D & 1A \\
-  {MoLoRAG}~(\citeyear{wu2025molorag}) & EMNLP & RAG & ColPali & Multiple (Qwen/DS/LLaVA) & V & - & D+IR+Nav & 1A \\
+  {MoLoRAG}~(\citeyear{wu2025molorag}) & EMNLP & RAG & ColPali & Multiple (Qwen/DS/LLaVA) & V & - & D, IR, Nav & 1A \\
   {Self-Attention Scoring}~(\citeyear{kang2024multi}) & ICDAR & RAG & Pix2Struct & Pix2Struct & V & - & D & 1A \\
   {VDocRAG$^*$}~(\citeyear{tanaka2025vdocrag}) & CVPR & RAG & Phi3V-4.2B & Phi3V-4.2B & V & - & D & 1A \\
-  {Doc-V*}~(\citeyear{zheng2026docvstar}) & preprint & AP & ColQwen & Qwen2.5-VL-7B-Instruct & V & ReAct+HD & D+IR+QR+Nav & 1A \\
-  {DocReact}~(\citeyear{wu2025docreact}) & ACL & AP & ColPali, VisRAG & GPT-4o & V & ReAct+QD & D+IR+QR & 1A \\
-  {MACT}~(\citeyear{yu2025mact}) & preprint & AP & Multiple & Multiple (Qwen/Intern) & V & ReAct+PE & D & 4A+SC+SV \\
+  {Doc-V*}~(\citeyear{zheng2026docvstar}) & preprint & AP & Qwen2.5-VL & Qwen2.5-VL-7B-Instruct & V & ReAct, HD & D, IR, QR, Nav & 1A \\
+  {DocReact}~(\citeyear{wu2025docreact}) & ACL & AP & ColPali, VisRAG & GPT-4o & V & ReAct, QD & D, IR, QR & 1A \\
+  {MACT}~(\citeyear{yu2025mact}) & preprint & AP & Multiple & Multiple (Qwen/Intern) & V & ReAct, PE & D & 4A, SC, SV \\
 
 \midrule[0.4pt]
 
@@ -61,22 +61,22 @@
   {RM-T5}~(\citeyear{dong2024multi}) & DAS & PDT & DiT & T5-Base & T, V, L & - & - & - \\
   {DocSLM}~(\citeyear{hannan2025docslm}) & CVPR? & BC & SigLIP2 & Qwen2.5-1.5B & T, V, L & - & - & SC \\
   {InstructDoc}~(\citeyear{tanaka2024instructdoc}) & AAAI & BC & CLIP & FlanT5, BLIP2 & T, V, L & - & - & - \\
-  {LayTokenLLM}~(\citeyear{zhu2025simple}) & CVPR & BC & - & LLaMA3-8B, Qwen1.5-7B & T, L & - & - & - \\
-  {CoR$^*$}~(\citeyear{guo2026end}) & preprint & BC & Qwen2.5-VL & Qwen2.5-VL-7B & T, V & CoT+PE+HD & - & - \\
+  {LayTokenLLM}~(\citeyear{zhu2025laytokenllm}) & CVPR & BC & - & LLaMA3-8B, Qwen1.5-7B & T, L & - & - & - \\
+  {CoR$^*$}~(\citeyear{guo2026end}) & preprint & BC & Qwen2.5-VL & Qwen2.5-VL-7B & T, V & CoT, PE, HD & - & - \\
   {CREAM}~(\citeyear{zhang2024cream}) & ACM & RAG & Pix2Struct & LLaMA2-7B & T, V & HD & J & 1A \\
-  {KGP}~(\citeyear{wang2024knowledge}) & AAAI & RAG & - & Multiple & T, L & - & S+IR+Nav & 1A \\
-  {MHier-RAG}~(\citeyear{gong2025mhier}) & preprint & RAG & Qwen-VL-Plus & Multiple (Qwen/DS/GPT) & T, V, L & CoT+HD & J & 1A \\
-  {MLDocRAG}~(\citeyear{zhang2026mldocrag}) & preprint & RAG & - & Multiple (Qwen) & T, V, L & CoT+HD & D & 1A \\
+  {KGP}~(\citeyear{wang2024knowledge}) & AAAI & RAG & - & Multiple & T, L & - & S, IR, Nav & 1A \\
+  {MHier-RAG}~(\citeyear{gong2025mhier}) & preprint & RAG & Qwen-VL-Plus & Multiple (Qwen/DS/GPT) & T, V, L & CoT, HD & J & 1A \\
+  {MLDocRAG}~(\citeyear{zhang2026mldocrag}) & preprint & RAG & - & Multiple (Qwen) & T, V, L & CoT, HD & D & 1A \\
   {MultiDocFusion}~(\citeyear{shin2025multidocfusion}) & ACL & RAG & - & Multiple (Qwen/LLaMa/Mistral) & T, V, L & HD & D & 1A \\
   {M2RAG$^*$}~(\citeyear{duan2025m2rag}) & NeurIPS & RAG & VisRAG-Ret & Multiple (Qwen) & T, V & - & J & 3A \\
   {MDocAgent$^*$}~(\citeyear{han2025mdocagent}) & preprint & RAG & ColPali, ColQwen2 & Multiple (Llama/Qwen) & T, V & - & J & 5A \\
   {PDF-WuKong$^*$}~(\citeyear{xie2024wukong}) & preprint & RAG & IXC2-VL-4KHD & IXC2-VL-4KHD & T, V & - & J & 1A \\
   {RAG-DocVQA$^*$}~(\citeyear{lopez2025enhancing}) & ICDAR & RAG & DiT, Pix2Struct & Qwen2.5-VL-7B-Instruct & T, V, L & - & D & 1A \\
-  {DocLens}~(\citeyear{zhu2025doclens}) & preprint & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct & J & 4A+SA \\
-  {DocAgent$^*$}~(\citeyear{sun2025docagent}) & EMNLP & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct+HD & J+IR+Nav & 3A \\
-  {DocDancer$^*$}~(\citeyear{zhang2026docdancer}) & preprint & AP & Qwen3-VL-235B & Qwen3-4B/30B-A3B & T, V, L & ReAct & J+IR+QR & 1A \\
-  {SimpleDoc$^*$}~(\citeyear{jain2025simpledoc}) & EMNLP & AP & ColQwen-2.5 & Multiple (Qwen) & T, V & CoT & J+IR+QR & 1A+SR+SV \\
-  {ViDoRAG$^*$}~(\citeyear{wang2025vidorag}) & EMNLP & AP & NV-Embed-V2, ColQwen2 & Multiple (Qwen/LLaMa/GPT) & T, V & ReAct+HD & J+IR & 3A+SR+SV \\
+  {DocLens}~(\citeyear{zhu2025doclens}) & preprint & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct & J & 4A, SA \\
+  {DocAgent$^*$}~(\citeyear{sun2025docagent}) & EMNLP & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct, HD & J, IR, Nav & 3A \\
+  {DocDancer$^*$}~(\citeyear{zhang2026docdancer}) & preprint & AP & Qwen3-VL-235B & Qwen3-4B/30B-A3B & T, V, L & ReAct & J, IR, QR & 1A \\
+  {SimpleDoc$^*$}~(\citeyear{jain2025simpledoc}) & EMNLP & AP & ColQwen-2.5 & Multiple (Qwen) & T, V & CoT & J, IR, QR & 1A, SR, SV \\
+  {ViDoRAG$^*$}~(\citeyear{wang2025vidorag}) & EMNLP & AP & NV-Embed-V2, ColQwen2 & Multiple (Qwen/LLaMa/GPT) & T, V & ReAct, HD & J, IR & 3A, SR, SV \\
 
 \bottomrule
 \end{tabular}
