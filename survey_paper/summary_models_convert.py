@@ -380,15 +380,9 @@ def main():
     if missing:
         raise ValueError(f"CSV is missing columns: {sorted(missing)}")
 
-    # ── Pre-process OCR column: split into clean OCR (Yes/No) and OCR Note ────
-    # Values like 'Yes*' / 'No*' carry an extra meaning that we now surface in
-    # a dedicated 'OCR Note' column so the OCR column itself stays binary.
-    if ocr_col:
-        raw_ocr = df[ocr_col].fillna("").astype(str).str.strip()
-        df["OCR Note"] = raw_ocr.map(OCR_NOTE_MAP).fillna("--")
-        df[ocr_col] = raw_ocr.str.rstrip("*")
-
-    # ── Table 1: Grouped by Architecture (OCR + OCR Note columns visible) ─────
+    # ── Table 1: Grouped by Architecture (OCR column shown verbatim, with *) ──
+    # The OCR column keeps its raw values (including 'Yes*' / 'No*') so the
+    # asterisk distinction is visible directly. No OCR Note column is added.
     arch_hidden = ALWAYS_HIDDEN | {group_col}
     arch_caption = (
         r"Survey of MP-VRDU models grouped by architecture. "
@@ -399,9 +393,9 @@ def main():
         r"IR\,=\,Iterative Retrieval; QR\,=\,Query Reformulation; Nav\,=\,Navigation. "
         r"$n$A\,=\,$n$ agents; "
         r"SR\,=\,Self-Refine; SV\,=\,Self-Verify; SC\,=\,Self-Consistency; SA\,=\,Sampling-Adjudication. "
-        r"OCR Note column: "
-        r"Aux.\,=\,model is not strictly OCR-dependent but incorporates OCR as an auxiliary framework component; "
-        r"Train\,=\,OCR-derived supervision is used during training but no OCR is used at inference. "
+        r"OCR column: "
+        r"Yes$^*$\,=\,not strictly OCR-dependent but incorporates OCR as an auxiliary framework component; "
+        r"No$^*$\,=\,OCR-derived supervision is used during training but no OCR is used at inference. "
         r"`--' indicates not reported / not applicable."
     )
     arch_table = build_single_table(
@@ -418,6 +412,14 @@ def main():
         f.write(PREAMBLE)
         f.write(arch_table)
     print(f"✓  Wrote {OUTPUT_ARCH}  ({len(df)} rows, architecture-grouped)")
+
+    # ── Pre-process OCR column for the OCR-grouped table only ─────────────────
+    # Split 'Yes*' / 'No*' into a clean OCR group label (Yes/No) plus a
+    # dedicated OCR Note column that surfaces the asterisk meaning.
+    if ocr_col:
+        raw_ocr = df[ocr_col].fillna("").astype(str).str.strip()
+        df["OCR Note"] = raw_ocr.map(OCR_NOTE_MAP).fillna("--")
+        df[ocr_col] = raw_ocr.str.rstrip("*")
 
     # ── Table 2: Grouped by OCR dependency (Architecture + OCR Note visible) ──
     # Architecture values are abbreviated.  The OCR column is hidden (it is the

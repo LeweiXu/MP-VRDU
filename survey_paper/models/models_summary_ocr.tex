@@ -36,18 +36,25 @@
 \midrule
   {Docopilot}~(\citeyear{duan2025docopilot}) & CVPR & Train & BC & InternViT-300M & Multiple (Intern) & V & - & - & - \\
   {DocR1}~(\citeyear{xiong2026docr1}) & AAAI & -- & BC & Qwen2.5-VL & Qwen2.5-VL-7B & V & CoT, HD & - & - \\
+  {DocSeeker}~(\citeyear{yan2025docseeker}) & CVPR & -- & BC & Qwen2.5-VL ViT & Qwen2.5-VL-7B-Instruct & V & CoT, HD & - & - \\
   {Leopard}~(\citeyear{jia2024leopard}) & TMLR & -- & BC & SigLIP-SO400M & LLaMa-3.1-8B, Mistral-7B & V & CoT & - & - \\
   {mPLUG-DocOwl2}~(\citeyear{hu2025mplug2}) & ACL & -- & BC & ViT-L/14 & mPLUG-Owl2 & V & - & - & - \\
   {Texthawk2}~(\citeyear{yu2024texthawk2}) & preprint & Train & BC & SigLIP-SO400M & Qwen2-7B-Instruct & V & - & - & - \\
+  {URaG}~(\citeyear{shi2026urag}) & AAAI & -- & BC & Qwen2.5-VL ViT & Qwen2.5-VL-3B / Qwen2.5-VL-7B & V & HD & D & - \\
   {AVIR}~(\citeyear{li2025avir}) & ACM & -- & RAG & Pix2Struct & Qwen2.5-VL-3B-AWQ & V & HD & D & 1A \\
   {DFVC}~(\citeyear{qian2026accurate}) & MDPI & -- & RAG & VisRAG, ColQwen & Qwen2-VL-2B-Instruct & V & - & D & - \\
+  {DREAM}~(\citeyear{zhang2025dream}) & ACM & -- & RAG & InternVL2 ViT & InternVL2-4B & V & HD & J & 1A \\
   {M3DocRAG}~(\citeyear{cho2024m3docrag}) & preprint & -- & RAG & ColPali, ColQwen & Multiple (Qwen/Intern/Idefics) & V & - & D & 1A \\
+  {MM-R5}~(\citeyear{xu2026mmr5}) & AAAI & -- & RAG & Qwen2.5-VL ViT & Qwen2.5-VL-7B & V & CoT & J & - \\
   {MoLoRAG}~(\citeyear{wu2025molorag}) & EMNLP & -- & RAG & ColPali & Multiple (Qwen/DS/LLaVA) & V & - & D, IR, Nav & 1A \\
   {Self-Attention Scoring}~(\citeyear{kang2024multi}) & ICDAR & -- & RAG & Pix2Struct & Pix2Struct & V & - & D & 1A \\
+  {SV-RAG}~(\citeyear{chen2025svrag}) & ICLR & -- & RAG & InternVL2 / PaliGemma / Phi-3-vision & Multiple(Intern/Pali/Phi) & V & - & D & 1A \\
   {VDocRAG}~(\citeyear{tanaka2025vdocrag}) & CVPR & Train & RAG & Phi3V-4.2B & Phi3V-4.2B & V & - & D & 1A \\
   {Doc-V*}~(\citeyear{zheng2026docvstar}) & preprint & -- & AP & Qwen2.5-VL & Qwen2.5-VL-7B-Instruct & V & ReAct, HD & D, IR, QR, Nav & 1A \\
   {DocReact}~(\citeyear{wu2025docreact}) & ACL & -- & AP & ColPali, VisRAG & GPT-4o & V & ReAct, QD & D, IR, QR & 1A \\
   {MACT}~(\citeyear{yu2025mact}) & preprint & -- & AP & Multiple & Multiple (Qwen/Intern) & V & ReAct, PE & D & 4A, SC, SV \\
+  {SLEUTH}~(\citeyear{liu2025sleuth}) & preprint & -- & AP & ColPali, Qwen3-VL ViT & Multiple(Qwen/GLM/Gemini) & V & CoT, HD & D & 4A \\
+  {VRAG-RL}~(\citeyear{wang2025vragrl}) & NeurIPS & -- & AP & Qwen2.5-VL ViT & Qwen2.5-VL-3B/7B-Instruct & V & ReAct, HD & D, IR, QR & 1A \\
 
 \midrule[0.4pt]
 
@@ -72,9 +79,12 @@
   {MultiDocFusion}~(\citeyear{shin2025multidocfusion}) & ACL & -- & RAG & - & Multiple (Qwen/LLaMa/Mistral) & T, V, L & HD & D & 1A \\
   {PDF-WuKong}~(\citeyear{xie2024wukong}) & preprint & Aux. & RAG & IXC2-VL-4KHD & IXC2-VL-4KHD & T, V & - & J & 1A \\
   {RAG-DocVQA}~(\citeyear{lopez2025enhancing}) & ICDAR & Aux. & RAG & DiT, Pix2Struct & Qwen2.5-VL-7B-Instruct & T, V, L & - & D & 1A \\
+  {VisDoMRAG}~(\citeyear{suri2025visdom}) & NAACL & Aux. & RAG & ColPali / ColQwen2 & Multiple(Qwen/Gemini/GPT) & T, V & CoT & J & 3A, SC \\
+  {DMAP}~(\citeyear{fu2026dmap}) & ACM & Aux. & AP & ColPali & GPT-4o / Qwen-plus & T, V, L & CoT, HD & J & 2A, SR \\
   {DocAgent}~(\citeyear{sun2025docagent}) & EMNLP & Aux. & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct, HD & J, IR, Nav & 3A \\
   {DocDancer}~(\citeyear{zhang2026docdancer}) & preprint & Aux. & AP & Qwen3-VL-235B & Qwen3-4B/30B-A3B & T, V, L & ReAct & J, IR, QR & 1A \\
   {DocLens}~(\citeyear{zhu2025doclens}) & preprint & -- & AP & -- & Multiple (GPT/Gemini/Claude) & T, V, L & ReAct & J & 4A, SA \\
+  {MM-Doc-R1}~(\citeyear{lin2026mmdocr1}) & preprint & Aux. & AP & Qwen2.5-VL ViT & Qwen3-4B/8B & T, V & ReAct, HD & S, IR, QR, Nav & 3A \\
   {SimpleDoc}~(\citeyear{jain2025simpledoc}) & EMNLP & Aux. & AP & ColQwen-2.5 & Multiple (Qwen) & T, V & CoT & J, IR, QR & 1A, SR, SV \\
   {ViDoRAG}~(\citeyear{wang2025vidorag}) & EMNLP & Aux. & AP & NV-Embed-V2, ColQwen2 & Multiple (Qwen/LLaMa/GPT) & T, V & ReAct, HD & J, IR & 3A, SR, SV \\
 
