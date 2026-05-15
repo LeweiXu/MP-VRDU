@@ -37,6 +37,7 @@ DISPLAY_NAME_MAP = {
     "Model": "Model",
     "Architecture": "Architecture",
     "OCR": "OCR",
+    "OCR Note": "OCR Note",
     "Downstream Tasks": "Tasks",
     "Prompt Strategy": "Prompt",
     "Prompting Strategy": "Prompt",
@@ -54,6 +55,7 @@ COLUMN_SPEC_MAP = {
     "Venue": "l",
     "Architecture": "l",
     "OCR": "c",
+    "OCR Note": "c",
     "Downstream Tasks": "l",
     "Modality": "c",
     "Vision Encoder": "l",
@@ -75,6 +77,7 @@ PREFERRED_ORDER = [
     "Name",
     "Venue",
     "OCR",
+    "OCR Note",
     "Architecture",
     "Vision Encoder",
     "LLM Backbone",
@@ -101,7 +104,19 @@ OCR_GROUP_LABELS = {
     "Yes": "OCR-Used",
 }
 OCR_GROUP_ORDER = ["OCR-Free", "OCR-Used"]
-OCR_SORT_ORDER = ["No", "No*", "Yes", "Yes*"]
+OCR_SORT_ORDER = ["No", "Yes"]
+
+# Map raw OCR values (with optional asterisk) to the new OCR Note column.
+# Yes  -> standard OCR-dependent system
+# Yes* -> not strictly OCR-dependent; OCR is an auxiliary framework component
+# No   -> standard OCR-free system
+# No*  -> OCR used during training but not at inference
+OCR_NOTE_MAP = {
+    "Yes":  "--",
+    "Yes*": "Aux.",
+    "No":   "--",
+    "No*":  "Train",
+}
 
 # Abbreviations for the Architecture column when shown inside the OCR table.
 ARCH_ABBREVS = {
@@ -365,8 +380,15 @@ def main():
     if missing:
         raise ValueError(f"CSV is missing columns: {sorted(missing)}")
 
-    # ── Table 1: Grouped by Architecture (OCR column visible) ─────────────────
-    # No asterisk on model names here — the OCR column itself shows 'Yes*'/'No*'.
+    # ── Pre-process OCR column: split into clean OCR (Yes/No) and OCR Note ────
+    # Values like 'Yes*' / 'No*' carry an extra meaning that we now surface in
+    # a dedicated 'OCR Note' column so the OCR column itself stays binary.
+    if ocr_col:
+        raw_ocr = df[ocr_col].fillna("").astype(str).str.strip()
+        df["OCR Note"] = raw_ocr.map(OCR_NOTE_MAP).fillna("--")
+        df[ocr_col] = raw_ocr.str.rstrip("*")
+
+    # ── Table 1: Grouped by Architecture (OCR + OCR Note columns visible) ─────
     arch_hidden = ALWAYS_HIDDEN | {group_col}
     arch_caption = (
         r"Survey of MP-VRDU models grouped by architecture. "
@@ -377,8 +399,9 @@ def main():
         r"IR\,=\,Iterative Retrieval; QR\,=\,Query Reformulation; Nav\,=\,Navigation. "
         r"$n$A\,=\,$n$ agents; "
         r"SR\,=\,Self-Refine; SV\,=\,Self-Verify; SC\,=\,Self-Consistency; SA\,=\,Sampling-Adjudication. "
-        r"Yes\textsuperscript{*}\,=\,not OCR-dependent but incorporates OCR as a framework component; "
-        r"No\textsuperscript{*}\,=\,OCR-derived training, no OCR at inference. "
+        r"OCR Note column: "
+        r"Aux.\,=\,model is not strictly OCR-dependent but incorporates OCR as an auxiliary framework component; "
+        r"Train\,=\,OCR-derived supervision is used during training but no OCR is used at inference. "
         r"`--' indicates not reported / not applicable."
     )
     arch_table = build_single_table(
@@ -396,8 +419,10 @@ def main():
         f.write(arch_table)
     print(f"✓  Wrote {OUTPUT_ARCH}  ({len(df)} rows, architecture-grouped)")
 
-    # ── Table 2: Grouped by OCR dependency (Architecture column visible) ──────
-    # Architecture values are abbreviated; models with Yes*/No* get $^*$ on name.
+    # ── Table 2: Grouped by OCR dependency (Architecture + OCR Note visible) ──
+    # Architecture values are abbreviated.  The OCR column is hidden (it is the
+    # grouping dimension), but the OCR Note column remains visible so that the
+    # Aux./Train exceptions previously carried by 'Yes*' / 'No*' are preserved.
     if ocr_col:
         ocr_hidden = ALWAYS_HIDDEN | {ocr_col}
         ocr_caption = (
@@ -412,14 +437,15 @@ def main():
             r"IR\,=\,Iterative Retrieval; QR\,=\,Query Reformulation; Nav\,=\,Navigation. "
             r"$n$A\,=\,$n$ agents; "
             r"SR\,=\,Self-Refine; SV\,=\,Self-Verify; SC\,=\,Self-Consistency; SA\,=\,Sampling-Adjudication. "
-            r"Yes\textsuperscript{*}\,=\,not strictly OCR-dependent but incorporates OCR as a framework component; "
-            r"No\textsuperscript{*}\,=\,OCR used during training but not required at inference. "
+            r"OCR Note column: "
+            r"Aux.\,=\,model is not strictly OCR-dependent but incorporates OCR as an auxiliary framework component; "
+            r"Train\,=\,OCR-derived supervision is used during training but no OCR is used at inference. "
             r"`--' indicates not reported / not applicable."
         )
         ocr_table = build_single_table(
             df, ocr_col, OCR_GROUP_ORDER,
             ocr_hidden, model_col,
-            asterisk_col=ocr_col,
+            asterisk_col=None,
             caption=ocr_caption,
             label="tab:model_survey_ocr",
             cell_value_maps={group_col: ARCH_ABBREVS},

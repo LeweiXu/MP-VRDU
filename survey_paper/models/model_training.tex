@@ -22,77 +22,70 @@
 \captionsetup{font=small}
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{0.9}
-\begin{tabular}{l c c c c c c c c c}
+\begin{tabular}{l l c c c c c c c c c}
 \toprule
- & \multicolumn{3}{c}{\textbf{Vision Encoder}} & \multicolumn{3}{c}{\textbf{LLM Backbone}} & \multicolumn{3}{c}{\textbf{Adaptors and Projectors}} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
-\textbf{Model} & \textbf{PT} & \textbf{IT} & \textbf{FT} & \textbf{PT} & \textbf{IT} & \textbf{FT} & \textbf{PT} & \textbf{IT} & \textbf{FT} \\
+ &  & \multicolumn{3}{c}{\textbf{Vision Encoder}} & \multicolumn{3}{c}{\textbf{LLM Backbone}} & \multicolumn{3}{c}{\textbf{Adaptors}} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
+\textbf{Model} & \textbf{Arch.} & \textbf{PT} & \textbf{IT} & \textbf{FT} & \textbf{PT} & \textbf{IT} & \textbf{FT} & \textbf{PT} & \textbf{IT} & \textbf{FT} \\
 \midrule
 
-% ── Page-to-Document Encoding Models ─────────────────────────────────────────────────────────────
+% ── End-to-End ─────────────────────────────────────────────────────────────
 \rowcolor{sectionbg}
-\multicolumn{10}{l}{\textbf{Page-to-Document Encoding Models}} \\
+\multicolumn{11}{l}{\textbf{End-to-End}} \\
 \midrule
-  Arctic-TILT & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
-  GRAM & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
-  Hi-VT5 & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
-  RM-T5 & -- & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
+  Arctic-TILT & PDT & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
+  GRAM & PDT & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
+  Docopilot & BC & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark & -- \\
+  DocR1 & BC & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
+  DocSLM & BC & \trainmark & \frozenmark & \frozenmark & \frozenmark & \trainmark & \trainmark & \trainmark & \trainmark & \trainmark \\
+  mPLUG-DocOwl2 & BC & \trainmark & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- & \trainmark \\
+  TextHawk2 & BC & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- \\
+  PDF-WuKong & RAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
+  Doc-V* & AP & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- & \frozenmark & \frozenmark \\
+  DocDancer & AP & -- & \frozenmark & -- & -- & \trainmark & -- & -- & -- & -- \\
+  MACT & AP & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & -- & -- \\
 
 \midrule[0.4pt]
 
-% ── Backbone-Centric MLLM Adaptation ─────────────────────────────────────────────────────────────
+% ── Partially Trained ─────────────────────────────────────────────────────────────
 \rowcolor{sectionbg}
-\multicolumn{10}{l}{\textbf{Backbone-Centric MLLM Adaptation}} \\
+\multicolumn{11}{l}{\textbf{Partially Trained}} \\
 \midrule
-  CoR & -- & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark \\
-  Docopilot & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark & -- \\
-  DocR1 & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
-  DocSLM & \trainmark & \frozenmark & \frozenmark & \frozenmark & \trainmark & \trainmark & \trainmark & \trainmark & \trainmark \\
-  InstructDoc & -- & \frozenmark & \frozenmark & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark \\
-  LayTokenLLM & -- & -- & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- \\
-  Leopard & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- \\
-  mPLUG-DocOwl2 & \trainmark & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- & \trainmark \\
-  TextHawk2 & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- \\
+  Hi-VT5 & PDT & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
+  RM-T5 & PDT & -- & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- & \trainmark \\
+  CoR & BC & -- & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark \\
+  InstructDoc & BC & -- & \frozenmark & \frozenmark & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark \\
+  LayTokenLLM & BC & -- & -- & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- \\
+  Leopard & BC & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark & \trainmark & -- \\
+  AVIR & RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
+  CREAM & RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
+  DFVC & RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
+  KGP & RAG & -- & -- & -- & \trainmark & \trainmark & -- & -- & \trainmark & -- \\
+  M2RAG & RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
+  MLDocRAG & RAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
+  MoLoRAG & RAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
+  MultiDocFusion & RAG & -- & -- & -- & -- & \trainmark & -- & -- & \trainmark & -- \\
+  RAG-DocVQA & RAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
+  Self-Attention Scoring & RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
+  VDocRAG & RAG & \frozenmark & -- & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark \\
 
 \midrule[0.4pt]
 
-% ── Retriever-Generator Pipeline ─────────────────────────────────────────────────────────────
+% ── Training-Free ─────────────────────────────────────────────────────────────
 \rowcolor{sectionbg}
-\multicolumn{10}{l}{\textbf{Retriever-Generator Pipeline}} \\
+\multicolumn{11}{l}{\textbf{Training-Free}} \\
 \midrule
-  AVIR & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
-  CREAM & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
-  DFVC & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
-  KGP & -- & -- & -- & \trainmark & \trainmark & -- & -- & \trainmark & -- \\
-  M2RAG & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
-  M3DocRAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  MDocAgent & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  MHier-RAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  MLDocRAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
-  MoLoRAG & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & -- \\
-  MultiDocFusion & -- & -- & -- & -- & \trainmark & -- & -- & \trainmark & -- \\
-  PDF-WuKong & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
-  RAG-DocVQA & -- & -- & \trainmark & -- & -- & \trainmark & -- & -- & \trainmark \\
-  Self-Attention Scoring & -- & -- & \frozenmark & -- & -- & \frozenmark & -- & -- & \trainmark \\
-  VDocRAG & \frozenmark & -- & \frozenmark & \frozenmark & -- & \frozenmark & \trainmark & -- & \trainmark \\
-
-\midrule[0.4pt]
-
-% ── Agentic Pipeline ─────────────────────────────────────────────────────────────
-\rowcolor{sectionbg}
-\multicolumn{10}{l}{\textbf{Agentic Pipeline}} \\
-\midrule
-  Doc-V* & -- & \frozenmark & \frozenmark & -- & \trainmark & \trainmark & -- & \frozenmark & \frozenmark \\
-  DocAgent & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  DocDancer & -- & \frozenmark & -- & -- & \trainmark & -- & -- & -- & -- \\
-  DocLens & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  DocReact & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  MACT & -- & \trainmark & \trainmark & -- & \trainmark & \trainmark & -- & -- & -- \\
-  SimpleDoc & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-  ViDoRAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  M3DocRAG & RAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  MDocAgent & RAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  MHier-RAG & RAG & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  DocAgent & AP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  DocLens & AP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  DocReact & AP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  SimpleDoc & AP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+  ViDoRAG & AP & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
 
 \bottomrule
 \end{tabular}
-\caption{Training status of MP-VRDU model components grouped by architectural family. \trainmark denotes trained parameters, \frozenmark denotes frozen parameters, and `--' indicates that the status is not reported or not applicable.}
+\caption{Training status of MP-VRDU model components grouped by training category. \trainmark denotes trained parameters, \frozenmark denotes frozen parameters, and `--' indicates that the status is not reported or not applicable. Architectural family abbreviations: PDT\,=\,Page-to-Document Encoding Models; BC\,=\,Backbone-Centric MLLM Adaptation; RAG\,=\,Retriever-Generator Pipeline; AP\,=\,Agentic Pipeline.}
 \label{tab:model_training_status}
 \end{table*}
