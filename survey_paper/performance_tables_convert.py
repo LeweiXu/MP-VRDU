@@ -61,6 +61,7 @@ PREFERRED_ORDER = [
 METRIC_LABELS = {"ANLS", "Accuracy", "F1", "EM"}
 
 ARCH_GROUP_ORDER = [
+    "General Domain MLLM",
     "Page-to-Document Transformer",
     "Hierarchical Document Transformer",
     "Backbone-Centric MLLM Adaptation",

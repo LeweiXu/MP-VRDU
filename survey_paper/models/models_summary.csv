@@ -41,7 +41,7 @@ ID,Name,OCR,Architecture,Bibtex,Venue,Reasoning,Search,Agentic,Modality,Vision E
 40,SLEUTH,No,Agentic Pipeline,liu2025sleuth,preprint,"CoT, HD",D,4A,"V","ColPali, Qwen3-VL ViT",Multiple(Qwen/GLM/Gemini)
 41,MM-R5,No,Retriever-Generator Pipeline,xu2026mmr5,AAAI,CoT,J,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-7B
 42,VisDoMRAG,Yes*,Retriever-Generator Pipeline,suri2025visdom,NAACL,CoT,J,"3A, SC","T, V",ColPali / ColQwen2, Multiple(Qwen/Gemini/GPT)
-43,VRAG-RL,No,Agentic Pipeline,wang2025vragrl,NeurIPS,"ReAct, HD","D, IR, QR",1A,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B/7B-Instruct
+43,VRAG-RL,No,Agentic Pipeline,wang2026vragrl,NeurIPS,"ReAct, HD","D, IR, QR",1A,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B/7B-Instruct
 44,URaG,No,Backbone-Centric MLLM Adaptation,shi2026urag,AAAI,HD,D,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B / Qwen2.5-VL-7B
 45,DocSeeker,No,Backbone-Centric MLLM Adaptation,yan2025docseeker,CVPR,"CoT, HD",-,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-7B-Instruct
 46,DMAP,Yes*,Agentic Pipeline,fu2026dmap,ACM,"CoT, HD",J,"2A, SR","T, V, L",ColPali,GPT-4o / Qwen-plus

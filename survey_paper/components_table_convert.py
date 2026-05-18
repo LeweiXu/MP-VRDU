@@ -43,6 +43,7 @@ PREAMBLE = r"""% ─────────────────────
 %   \usepackage{xcolor}
 %   \usepackage{colortbl}
 %   \usepackage{caption}
+%   \usepackage{longtable}
 % ─────────────────────────────────────────────────────────────────────────────
 
 \definecolor{sectionbg}{gray}{0.88}
@@ -241,24 +242,34 @@ def build_table(df):
 
     return "\n".join([
         r"% -- tab:model_components --",
-        r"\begin{table*}[t]",
-        r"\centering",
+        r"{",
         r"\scriptsize",
         r"\captionsetup{font=small}",
         r"\setlength{\tabcolsep}{4pt}",
         r"\renewcommand{\arraystretch}{1.1}",
-        rf"\begin{{tabular}}{{{col_spec}}}",
+        rf"\begin{{longtable}}{{{col_spec}}}",
+        rf"\caption{{{caption}}} \label{{tab:model_components}} \\",
         r"\toprule",
         rf"{header} \\",
         r"\midrule",
+        r"\endfirsthead",
+        "",
+        rf"\multicolumn{{5}}{{l}}{{\textit{{Table \ref{{tab:model_components}} -- continued from previous page}}}} \\",
+        r"\toprule",
+        rf"{header} \\",
+        r"\midrule",
+        r"\endhead",
+        "",
+        rf"\midrule \multicolumn{{5}}{{r}}{{\textit{{Continued on next page}}}} \\",
+        r"\endfoot",
+        "",
+        r"\bottomrule",
+        r"\endlastfoot",
         "",
         section_block,
         "",
-        r"\bottomrule",
-        r"\end{tabular}",
-        rf"\caption{{{caption}}}",
-        r"\label{tab:model_components}",
-        r"\end{table*}",
+        r"\end{longtable}",
+        r"}",
         "",
     ])
 

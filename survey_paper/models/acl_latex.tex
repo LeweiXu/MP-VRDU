@@ -231,4 +231,9 @@ The following supporting artefacts were produced during the preparation of this 
 
 \appendix
 
+\section{General Domain MLLM Performance}
+\label{app:general-mllm}
+
+\paragraph{General MLLM for MP-VRDU.} Frontier general-domain multimodal LLMs are widely adopted for MP-VRDU and handle short multi-page inputs reasonably well when the document fits in context. The multi-page setting, however, introduces structural pressures that single-page VRDU did not surface: documents frequently exceed the backbone's context window, answer-bearing evidence is sparsely distributed across pages so attention dilutes over long inputs~\cite{liu2024lost}, and per-page reading fidelity competes directly with whole-document coverage under a fixed token budget. As shown in Table~\ref{tab:model_performance_arch}, even the strongest frontier general MLLMs trail specialised MP-VRDU systems by a wide margin on long-document benchmarks such as MMLongBench-Doc and LongDocURL, with smaller open-weight models degrading further still. These limitations motivate the specialised architectures examined in the rest of this paper, which decouple evidence selection from reading, distribute work across modality-specific components, or iteratively acquire evidence rather than relying on a single long-context forward pass.
+
 \end{document}
