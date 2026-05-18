@@ -34,10 +34,10 @@
 \rowcolor{sectionbg}
 \multicolumn{9}{l}{\textbf{Page-to-Document Encoding Models}} \\
 \midrule
-  {Arctic-TILT}~(\citeyear{borchmann2025arctic}) & ACL & Yes & U-Net & T5-Large & T, V, L & - & - & - \\
+  {Arctic-TILT}~(\citeyear{borchmann2025arctictilt}) & ACL & Yes & U-Net & T5-Large & T, V, L & - & - & - \\
   {GRAM}~(\citeyear{blau2024gram}) & CVPR & Yes & DocFormerv2 & DocFormerv2 & T, V, L & - & - & - \\
   {Hi-VT5}~(\citeyear{tito2023hierarchical}) & PR & Yes & DiT & T5-Base & T, V, L & - & - & - \\
-  {RM-T5}~(\citeyear{dong2024multi}) & DAS & Yes & DiT & T5-Base & T, V, L & - & - & - \\
+  {RM-T5}~(\citeyear{dong2024multipage}) & DAS & Yes & DiT & T5-Base & T, V, L & - & - & - \\
 
 \midrule[0.4pt]
 
@@ -47,11 +47,11 @@
 \midrule
   {DocR1}~(\citeyear{xiong2026docr1}) & AAAI & No & Qwen2.5-VL & Qwen2.5-VL-7B & V & CoT, HD & - & - \\
   {Leopard}~(\citeyear{jia2024leopard}) & TMLR & No & SigLIP-SO400M & LLaMa-3.1-8B, Mistral-7B & V & CoT & - & - \\
-  {mPLUG-DocOwl2}~(\citeyear{hu2025mplug2}) & ACL & No & ViT-L/14 & mPLUG-Owl2 & V & - & - & - \\
-  {DocSLM}~(\citeyear{hannan2025docslm}) & CVPR? & Yes & SigLIP2 & Qwen2.5-1.5B & T, V, L & - & - & SC \\
+  {mPLUG-DocOwl2}~(\citeyear{hu2025mplugdocowl2}) & ACL & No & ViT-L/14 & mPLUG-Owl2 & V & - & - & - \\
+  {DocSLM}~(\citeyear{hannan2025docslm}) & CVPR & Yes & SigLIP2 & Qwen2.5-1.5B & T, V, L & - & - & SC \\
   {InstructDoc}~(\citeyear{tanaka2024instructdoc}) & AAAI & Yes & CLIP & FlanT5, BLIP2 & T, V, L & - & - & - \\
   {LayTokenLLM}~(\citeyear{zhu2025laytokenllm}) & CVPR & Yes & - & LLaMA3-8B, Qwen1.5-7B & T, L & - & - & - \\
-  {CoR}~(\citeyear{guo2026end}) & preprint & Yes* & Qwen2.5-VL & Qwen2.5-VL-7B & T, V & CoT, PE, HD & - & - \\
+  {CoR}~(\citeyear{guo2026endtoend}) & preprint & Yes* & Qwen2.5-VL & Qwen2.5-VL-7B & T, V & CoT, PE, HD & - & - \\
   {Docopilot}~(\citeyear{duan2025docopilot}) & CVPR & No* & InternViT-300M & Multiple (Intern) & V & - & - & - \\
   {Texthawk2}~(\citeyear{yu2024texthawk2}) & preprint & No* & SigLIP-SO400M & Qwen2-7B-Instruct & V & - & - & - \\
 
@@ -65,10 +65,10 @@
   {DFVC}~(\citeyear{qian2026accurate}) & MDPI & No & VisRAG, ColQwen & Qwen2-VL-2B-Instruct & V & - & D & - \\
   {M3DocRAG}~(\citeyear{cho2024m3docrag}) & preprint & No & ColPali, ColQwen & Multiple (Qwen/Intern/Idefics) & V & - & D & 1A \\
   {MoLoRAG}~(\citeyear{wu2025molorag}) & EMNLP & No & ColPali & Multiple (Qwen/DS/LLaVA) & V & - & D, IR, Nav & 1A \\
-  {Self-Attention Scoring}~(\citeyear{kang2024multi}) & ICDAR & No & Pix2Struct & Pix2Struct & V & - & D & 1A \\
+  {Self-Attention Scoring}~(\citeyear{kang2024multipage}) & ICDAR & No & Pix2Struct & Pix2Struct & V & - & D & 1A \\
   {CREAM}~(\citeyear{zhang2024cream}) & ACM & Yes & Pix2Struct & LLaMA2-7B & T, V & HD & J & 1A \\
   {KGP}~(\citeyear{wang2024knowledge}) & AAAI & Yes & - & Multiple & T, L & - & S, IR, Nav & 1A \\
-  {MHier-RAG}~(\citeyear{gong2025mhier}) & preprint & Yes & Qwen-VL-Plus & Multiple (Qwen/DS/GPT) & T, V, L & CoT, HD & J & 1A \\
+  {MHier-RAG}~(\citeyear{gong2025mhierrag}) & preprint & Yes & Qwen-VL-Plus & Multiple (Qwen/DS/GPT) & T, V, L & CoT, HD & J & 1A \\
   {MLDocRAG}~(\citeyear{zhang2026mldocrag}) & preprint & Yes & - & Multiple (Qwen) & T, V, L & CoT, HD & D & 1A \\
   {MultiDocFusion}~(\citeyear{shin2025multidocfusion}) & ACL & Yes & - & Multiple (Qwen/LLaMa/Mistral) & T, V, L & HD & D & 1A \\
   {M2RAG}~(\citeyear{duan2025m2rag}) & NeurIPS & Yes* & VisRAG-Ret & Multiple (Qwen) & T, V & - & J & 3A \\

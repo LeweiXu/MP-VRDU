@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 """Compile latex/acl_latex.tex into a standalone PDF.
 
-Runs pdflatex -> bibtex -> pdflatex -> pdflatex from the Literature_Review/
-directory, places all auxiliary files (.aux/.log/.bbl/.blg/.out/.toc) under a
-build/ subdirectory, and copies the final PDF next to this script as
-Lit_Review.pdf.
+Produces two PDFs side-by-side with this script:
+  - Lit_Review.pdf       (the default ACL two-column layout)
+  - Lit_Review_1col.pdf  (a single-column variant, patched on the fly)
+
+For each variant, runs pdflatex -> bibtex -> pdflatex -> pdflatex with all
+auxiliary files (.aux/.log/.bbl/.blg/.out/.toc) under its own build/ subdir.
+The single-column variant is produced by writing a patched copy of acl.sty
+into its build directory (with \\twocolumn swapped for \\onecolumn) and
+prepending that directory to TEXINPUTS so pdflatex picks it up first.
 
 Usage:
-  python compile.py            # compile and clean up build/
-  python compile.py --keep     # compile and keep build/ for inspection
+  python compile.py            # compile both variants and clean up build dirs
+  python compile.py --keep     # compile and keep build dirs for inspection
+  python compile.py --only 2col   # only build the two-column version
+  python compile.py --only 1col   # only build the single-column version
 """
 
 from __future__ import annotations
@@ -24,8 +31,11 @@ HERE = Path(__file__).resolve().parent
 LATEX_DIR = HERE / "latex"
 SRC = LATEX_DIR / "acl_latex.tex"
 JOB = "acl_latex"            # jobname (also the base of the .aux/.pdf names)
-BUILD = HERE / "build"
-OUTPUT_PDF = HERE / "Lit_Review.pdf"
+
+BUILD_2COL = HERE / "build"
+BUILD_1COL = HERE / "build_1col"
+OUTPUT_PDF_2COL = HERE / "Lit_Review.pdf"
+OUTPUT_PDF_1COL = HERE / "Lit_Review_1col.pdf"
 
 REQUIRED = [
     SRC,
@@ -48,34 +58,60 @@ def check_inputs() -> None:
         sys.exit("missing required files:\n  - " + "\n  - ".join(missing))
 
 
-def build_env() -> dict[str, str]:
-    """Expose latex/ to pdflatex (TEXINPUTS) and bibtex (BIBINPUTS, BSTINPUTS)."""
+def build_env(search_dirs: list[Path]) -> dict[str, str]:
+    """Expose given dirs (in order) to pdflatex / bibtex via TEXINPUTS et al."""
     env = os.environ.copy()
-    extras = f"{LATEX_DIR}{os.pathsep}"
+    extras = os.pathsep.join(str(p) for p in search_dirs) + os.pathsep
     for var in ("TEXINPUTS", "BIBINPUTS", "BSTINPUTS"):
         env[var] = extras + env.get(var, "")
     return env
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--keep", action="store_true", help="keep build/ instead of deleting it after success")
-    args = parser.parse_args()
+def patch_acl_sty_for_onecolumn(text: str) -> str:
+    """Force single-column layout in acl.sty.
 
-    check_inputs()
-    BUILD.mkdir(exist_ok=True)
+    acl.sty hardcodes two-column mode in two places:
+      - `\\flushbottom \\twocolumn \\sloppy` at the top
+      - `\\twocolumn[\\@maketitle]` inside the patched \\maketitle
+    Swap both for single-column equivalents.
+    """
+    replacements = {
+        r"\flushbottom \twocolumn \sloppy": r"\flushbottom \onecolumn \sloppy",
+        r"\twocolumn[\@maketitle]": r"\@maketitle",
+    }
+    for old, new in replacements.items():
+        if old not in text:
+            sys.exit(f"patch failed: expected to find {old!r} in acl.sty")
+        text = text.replace(old, new)
+    return text
+
+
+def compile_variant(build_dir: Path, output_pdf: Path, *, one_column: bool, keep: bool) -> None:
+    label = "single-column" if one_column else "two-column"
+    print(f"\n=== building {label} variant -> {output_pdf.name} ===")
+
+    if build_dir.exists():
+        shutil.rmtree(build_dir)
+    build_dir.mkdir()
     # \include{latex/X} writes build/latex/X.aux, so the subdir must exist.
-    (BUILD / "latex").mkdir(exist_ok=True)
+    (build_dir / "latex").mkdir()
     # bibtex (run inside build/) searches the cwd; copy the .bib and .bst here.
-    shutil.copyfile(LATEX_DIR / "custom.bib", BUILD / "custom.bib")
-    shutil.copyfile(LATEX_DIR / "acl_natbib.bst", BUILD / "acl_natbib.bst")
-    env = build_env()
+    shutil.copyfile(LATEX_DIR / "custom.bib", build_dir / "custom.bib")
+    shutil.copyfile(LATEX_DIR / "acl_natbib.bst", build_dir / "acl_natbib.bst")
+
+    search_dirs = [LATEX_DIR]
+    if one_column:
+        patched = build_dir / "acl.sty"
+        patched.write_text(patch_acl_sty_for_onecolumn((LATEX_DIR / "acl.sty").read_text()))
+        # Prepend the build dir so the patched acl.sty is found before the original.
+        search_dirs.insert(0, build_dir)
+    env = build_env(search_dirs)
 
     pdflatex_cmd = [
         "pdflatex",
         "-interaction=nonstopmode",
         "-halt-on-error",
-        f"-output-directory={BUILD}",
+        f"-output-directory={build_dir}",
         f"-jobname={JOB}",
         str(SRC),
     ]
@@ -84,19 +120,37 @@ def main() -> None:
     bibtex_cmd = ["bibtex", JOB]
 
     run(pdflatex_cmd, env)
-    run(bibtex_cmd, env, cwd=BUILD)
+    run(bibtex_cmd, env, cwd=build_dir)
     run(pdflatex_cmd, env)
     run(pdflatex_cmd, env)
 
-    pdf_src = BUILD / f"{JOB}.pdf"
+    pdf_src = build_dir / f"{JOB}.pdf"
     if not pdf_src.exists():
         sys.exit(f"expected output not found: {pdf_src}")
-    shutil.copyfile(pdf_src, OUTPUT_PDF)
-    print(f"\nwrote {OUTPUT_PDF}")
+    shutil.copyfile(pdf_src, output_pdf)
+    print(f"\nwrote {output_pdf}")
 
-    if not args.keep:
-        shutil.rmtree(BUILD, ignore_errors=True)
-        print(f"cleaned {BUILD}")
+    if not keep:
+        shutil.rmtree(build_dir, ignore_errors=True)
+        print(f"cleaned {build_dir}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--keep", action="store_true", help="keep build/ dirs instead of deleting them after success")
+    parser.add_argument(
+        "--only",
+        choices=("2col", "1col"),
+        help="build only the specified variant (default: build both)",
+    )
+    args = parser.parse_args()
+
+    check_inputs()
+
+    if args.only != "1col":
+        compile_variant(BUILD_2COL, OUTPUT_PDF_2COL, one_column=False, keep=args.keep)
+    if args.only != "2col":
+        compile_variant(BUILD_1COL, OUTPUT_PDF_1COL, one_column=True, keep=args.keep)
 
 
 if __name__ == "__main__":
