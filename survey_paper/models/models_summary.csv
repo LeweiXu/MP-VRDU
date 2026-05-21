@@ -10,7 +10,7 @@ ID,Name,OCR,Architecture,Bibtex,Venue,Reasoning,Search,Agentic,Modality,Vision E
 3,CoR,Yes*,Backbone-Centric MLLM Adaptation,guo2026end,preprint,"CoT, PE, HD",-,-,"T, V",Qwen2.5-VL,Qwen2.5-VL-7B
 10,Docopilot,No*,Backbone-Centric MLLM Adaptation,duan2025docopilot,CVPR,-,-,-,V,InternViT-300M,Multiple (Intern)
 11,DocR1,No,Backbone-Centric MLLM Adaptation,xiong2026docr1,AAAI,"CoT, HD",-,-,V,Qwen2.5-VL,Qwen2.5-VL-7B
-13,DocSLM,Yes,Backbone-Centric MLLM Adaptation,hannan2025docslm,CVPR?,-,-,SC,"T, V, L",SigLIP2,Qwen2.5-1.5B
+13,DocSLM,Yes,Backbone-Centric MLLM Adaptation,hannan2025docslm,CVPR?,-,-,-,"T, V, L",SigLIP2,Qwen2.5-1.5B
 16,InstructDoc,Yes,Backbone-Centric MLLM Adaptation,tanaka2024instructdoc,AAAI,-,-,-,"T, V, L",CLIP,"FlanT5, BLIP2"
 18,LayTokenLLM,Yes,Backbone-Centric MLLM Adaptation,zhu2025laytokenllm,CVPR,-,-,-,"T, L",-,"LLaMA3-8B, Qwen1.5-7B"
 19,Leopard,No,Backbone-Centric MLLM Adaptation,jia2024leopard,TMLR,CoT,-,-,V,SigLIP-SO400M,"LLaMa-3.1-8B, Mistral-7B"
@@ -37,11 +37,11 @@ ID,Name,OCR,Architecture,Bibtex,Venue,Reasoning,Search,Agentic,Modality,Vision E
 35,VDocRAG,No*,Retriever-Generator Pipeline,tanaka2025vdocrag,CVPR,-,D,1A,V,Phi3V-4.2B,Phi3V-4.2B
 37,DREAM,No,Retriever-Generator Pipeline,zhang2025dream,ACM,HD,J,1A,"V",InternVL2 ViT,InternVL2-4B
 38,MM-Doc-R1,Yes*,Agentic Pipeline,lin2026mmdocr1,preprint,"ReAct, HD","S, IR, QR, Nav",3A,"T, V",Qwen2.5-VL ViT,Qwen3-4B/8B
-39,SV-RAG,No,Retriever-Generator Pipeline,chen2025svrag,ICLR,-,D,1A,V,InternVL2 / PaliGemma / Phi-3-vision,Multiple(Intern/Pali/Phi)
-40,SLEUTH,No,Agentic Pipeline,liu2025sleuth,preprint,"CoT, HD",D,4A,"V","ColPali, Qwen3-VL ViT",Multiple(Qwen/GLM/Gemini)
+39,SV-RAG,No,Retriever-Generator Pipeline,chen2025svrag,ICLR,-,D,1A,V,-,Multiple(Intern/Pali/Phi)
+40,SLEUTH,No,Retriever-Generator Pipeline,liu2025sleuth,preprint,"CoT, HD",D,4A,"V","ColPali, Qwen3-VL ViT",Multiple(Qwen/GLM/Gemini)
 41,MM-R5,No,Retriever-Generator Pipeline,xu2026mmr5,AAAI,CoT,J,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-7B
 42,VisDoMRAG,Yes*,Retriever-Generator Pipeline,suri2025visdom,NAACL,CoT,J,"3A, SC","T, V",ColPali / ColQwen2, Multiple(Qwen/Gemini/GPT)
 43,VRAG-RL,No,Agentic Pipeline,wang2026vragrl,NeurIPS,"ReAct, HD","D, IR, QR",1A,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B/7B-Instruct
-44,URaG,No,Backbone-Centric MLLM Adaptation,shi2026urag,AAAI,HD,D,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B / Qwen2.5-VL-7B
+44,URaG,No,Backbone-Centric MLLM Adaptation,shi2026urag,AAAI,HD,-,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-3B / Qwen2.5-VL-7B
 45,DocSeeker,No,Backbone-Centric MLLM Adaptation,yan2025docseeker,CVPR,"CoT, HD",-,-,V,Qwen2.5-VL ViT,Qwen2.5-VL-7B-Instruct
 46,DMAP,Yes*,Agentic Pipeline,fu2026dmap,ACM,"CoT, HD",J,"2A, SR","T, V, L",ColPali,GPT-4o / Qwen-plus

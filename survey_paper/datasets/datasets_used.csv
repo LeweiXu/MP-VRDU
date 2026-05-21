@@ -354,3 +354,69 @@ RefCOCO,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 RefCOCO+,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 RefCOCOg,Benchmarking,Texthawk2,Referring expression comprehension benchmark
 PaperPDF,Benchmarking,PDF-WuKong,Long-PDF QA test split (introduced alongside training corpus)
+DUDE,Fine-Tuning,DREAM,DUDE training split used with MP-DocVQA for QA-module FT (v1 correction)
+DocVQA,Fine-Tuning,SV-RAG,39463 question-page pairs in the ColPali-style Col-retrieval training set
+InfographicVQA,Fine-Tuning,SV-RAG,10074 InfoVQA pairs in Col-retrieval training set
+TAT-DQA,Fine-Tuning,SV-RAG,13251 TAT-DQA pairs in Col-retrieval training set
+ArxivQA,Fine-Tuning,SV-RAG,10000 arXivQA pairs in Col-retrieval training set
+ColPali synthetic,Fine-Tuning,SV-RAG,45940 synthetic question-page pairs (government/healthcare/AI/energy) for Col-retrieval FT
+DocMatix-IR,Fine-Tuning,SV-RAG,ColPali-augmented IR data GPT-4o-filtered for Col-retrieval training
+PFLDocVQA,Fine-Tuning,SV-RAG,Federated DocVQA pairs GPT-4o-filtered for Col-retrieval training
+SlideVQA,Fine-Tuning,SV-RAG,10290-sample training split for QA module fine-tuning
+MP-DocVQA,Fine-Tuning,DREAM,LightGBM ranker and InternVL2-4B QA module trained on MP-DocVQA train split
+MP-DocVQA,Fine-Tuning,MM-R5,Included in 73843-QA SFT mix from MMDocIR training set
+MP-DocVQA,Fine-Tuning,URaG,Stage-1 retrieval pretraining + Stage-2 LoRA joint FT
+MP-DocVQA,Fine-Tuning,DocSeeker,13986 distilled ALR-CoT samples for SFT + EviGRPO RL pool
+DUDE,Fine-Tuning,MM-R5,Included in 73843-QA SFT mix from MMDocIR training set
+DUDE,Fine-Tuning,URaG,Retrieval pretraining + LoRA joint FT
+DUDE,Fine-Tuning,DocSeeker,SFT + EviGRPO RL pool
+SlideVQA,Fine-Tuning,MM-R5,Included in 73843-QA SFT mix
+SlideVQA,Fine-Tuning,VRAG-RL,SFT + GRPO RL training (Qwen-VLmax trajectory collection)
+SlideVQA,Fine-Tuning,URaG,Retrieval pretraining + LoRA joint FT
+TAT-DQA,Fine-Tuning,MM-R5,Included in 73843-QA SFT mix
+SciQAG,Fine-Tuning,MM-R5,Scientific QA included in 73843-QA SFT mix
+CUAD,Fine-Tuning,MM-R5,Legal contract QA included in 73843-QA SFT mix
+MM-R5 Reasoning Set,Fine-Tuning,MM-R5,Introduced 7200 GPT-4o-annotated CoT samples for SFT + 3K resolution-balanced for GRPO RL
+MMLongBench-Doc,Fine-Tuning,VRAG-RL,SFT + GRPO RL trajectory pool over MMLongBench-Doc documents
+ViDoSeek,Fine-Tuning,VRAG-RL,SFT + GRPO RL trajectory pool over ViDoSeek corpus
+VRAG-RL trajectories,Fine-Tuning,VRAG-RL,Introduced self-collected Qwen-VLmax trajectories over SlideVQA/ViDoSeek/MMLongBench-Doc
+LongDocURL,Fine-Tuning,MM-Doc-R1,300 samples held as validation set; remainder used as SPO/GRPO RL training data
+DocSeeker ALR-CoT,Fine-Tuning,DocSeeker,Introduced 13986 Gemini-2.5-Flash-distilled Analysis-Localisation-Reasoning CoT samples
+MP-DocVQA,Benchmarking,DREAM,Cross-page document VQA evaluation (page-matching EM + ANLS)
+MP-DocVQA,Benchmarking,URaG,Multi-page VQA evaluation (86.0-88.2% ANLS)
+MP-DocVQA,Benchmarking,DocSeeker,Multi-page VQA evaluation (86.2% ANLS)
+DUDE,Benchmarking,DREAM,Multi-page diverse-domain evaluation
+DUDE,Benchmarking,SV-RAG,6307 QA pairs from validation split (SP + cross-evidence)
+DUDE,Benchmarking,URaG,Multi-page evaluation (54.1-57.6% ANLS)
+DUDE,Benchmarking,DocSeeker,Multi-page evaluation (57.4% ANLS)
+DocVQA,Benchmarking,SV-RAG,5349 single-page + 5187 multi-page QA pairs from validation split
+MMLongBench-Doc,Benchmarking,DMAP,Long-document multimodal QA evaluation
+MMLongBench-Doc,Benchmarking,DREAM,Cross-page multi-page document evaluation
+MMLongBench-Doc,Benchmarking,MM-Doc-R1,Primary benchmark; 10.4% gain over RAG baselines
+MMLongBench-Doc,Benchmarking,SV-RAG,Single-evidence + cross-evidence subsets evaluation
+MMLongBench-Doc,Benchmarking,SLEUTH,Long-document evaluation (52.77% overall accuracy)
+MMLongBench-Doc,Benchmarking,VRAG-RL,Visually-rich long-document evaluation (Text/Table/Chart/Figure/Layout)
+MMLongBench-Doc,Benchmarking,URaG,Long-document evaluation (31.1-33.8% accuracy)
+MMLongBench-Doc,Benchmarking,DocSeeker,Long-document evaluation (40.1% accuracy)
+LongDocURL,Benchmarking,DMAP,Long multimodal document evaluation
+LongDocURL,Benchmarking,SLEUTH,Long-document cross-task generalisation evaluation
+LongDocURL,Benchmarking,URaG,Long-document evaluation (41.5-52.2% accuracy)
+LongDocURL,Benchmarking,DocSeeker,Long-document evaluation (51.7% accuracy)
+SlideVQA,Benchmarking,SV-RAG,20-page slide single + cross-evidence evaluation
+SlideVQA,Benchmarking,VRAG-RL,Single-hop + multi-hop slide QA evaluation
+SlideVQA,Benchmarking,URaG,Slide QA evaluation (63.8-72.1% EM)
+SlideVQA,Benchmarking,DocSeeker,Slide QA evaluation (77.1% F1)
+PaperTab,Benchmarking,DMAP,Table-centric scientific paper QA evaluation
+PaperTab,Benchmarking,SLEUTH,Table-centric scientific paper QA evaluation
+PaperTab,Benchmarking,VisDoMRAG,Included as a sub-task of VisDoMBench
+FetaTab,Benchmarking,DMAP,Tabular and chart QA from Wikipedia evaluation
+FetaTab,Benchmarking,SLEUTH,Table QA evaluation
+FetaTab,Benchmarking,VisDoMRAG,Included as a sub-task of VisDoMBench
+PaperText,Benchmarking,DMAP,Text-centric scientific paper QA evaluation
+PaperText,Benchmarking,SLEUTH,Text-centric scientific paper QA evaluation
+ViDoSeek,Benchmarking,VRAG-RL,Extraction + logic-reasoning subset evaluation
+MMDocIR,Benchmarking,MM-R5,Multi-modal document retrieval benchmark (313 docs avg 65.1 pages / 1658 Qs / 10 domains)
+VisR-Bench,Benchmarking,SV-RAG,Newly introduced web-crawled visually-rich benchmark (226 docs / 471 QAs / 9 domains)
+VisDoMBench,Benchmarking,VisDoMRAG,Newly introduced multi-document multi-modal RAG benchmark (2271 QAs across 5 sub-tasks)
+SciGraphQA,Benchmarking,VisDoMRAG,Chart-based QA sub-task of VisDoMBench
+SPIQA,Benchmarking,VisDoMRAG,Chart-and-table scientific QA sub-task of VisDoMBench

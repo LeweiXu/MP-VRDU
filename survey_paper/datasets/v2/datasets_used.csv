@@ -1,0 +1,421 @@
+Dataset,Role,Paper,Usage
+DocStruct4M,PT,mPLUG-DocOwl2,4M samples for single-image structure-aware pretraining
+DocStruct4M,PT,VDocRAG,500K samples used to pretrain VDocRetriever
+MP-DocStruct1M,PT,mPLUG-DocOwl2,1.1M multi-image samples for multi-page continue-pretraining (introduced)
+LLaVA-558K,PT,Leopard,558K multimodal samples used for VL connector pretraining
+Recap-COCO-30K,PT,Leopard,text-rich image pretraining for the Pro variant
+CC-3M,PT,Leopard,vision-language pretraining mix
+Donut,PT,Leopard,pretraining data for OCR-free document encoding
+Cauldron,PT,Leopard,pretraining-stage multimodal mix
+Cauldron,PT,Texthawk2,large-scale instruction/pretraining mix
+Arxiv Pages (4M),PT,Leopard,4M OCR-processed scientific pages for Pro pretraining
+OCR-IDL,PT,Hi-VT5,200K pages with hierarchical layout-aware denoising self-supervision
+LayoutLLM SFT data,PT,LayTokenLLM,layout-aware text for pretraining the layout token mechanism
+Sci-Hub PDFs,PT,Docopilot,raw PDFs used for next-token prediction pretraining
+Arxiv PDFs,PT,Docopilot,next-token prediction pretraining source
+Arxiv PDFs,PT,CoR,Mask-AR self-supervised pretraining on figure-caption pairs
+OpenReview PDFs,PT,Docopilot,paper PDFs for next-token prediction pretraining
+CCpdf,PT,Arctic-TILT,self-supervised pretraining for ~900K steps on PDF documents
+PaperPDF,PT,PDF-WuKong,1.1M bilingual PDF/QA corpus for self-supervised + supervised pretraining (introduced)
+LAION-400M,PT,Texthawk2,web image-caption pairs with LVLM-rewritten captions
+Wanjuan1.0,PT,Texthawk2,bilingual interleaved image-text from Wikipedia and news
+GrIT-20M,PT,Texthawk2,synthetic grounded captions with location labels
+UMG-41M,PT,Texthawk2,visual grounding pretraining mix
+Wukong,PT,Texthawk2,Chinese OCR pretraining corpus
+IIT-CDIP,PT,Texthawk2,English OCR pretraining corpus
+Common Crawl PDFs,PT,Texthawk2,text extracted from web PDFs for OCR pretraining
+RenderedText,PT,Texthawk2,synthetic English handwriting recognition data
+Multilingual OCR collection,PT,Texthawk2,aggregated scene/document OCR pretraining data (ArT/COCO-Text/etc.)
+arXiv LaTeX,PT,Texthawk2,LaTeX to markdown pretraining data
+GitHub READMEs,PT,Texthawk2,README files converted to markdown for layout pretraining
+Common Crawl DOCX,PT,Texthawk2,Word documents converted to markdown for pretraining
+PubTables-1M,PT,Texthawk2,table recognition pretraining
+MMC,PT,Texthawk2,chart-to-table and chart-QA pretraining
+ChartSFT,PT,Texthawk2,chart understanding pretraining
+DocStruct4M,FT,mPLUG-DocOwl2,501781 samples reused in continue-pretraining + SFT phase
+DocVQA,FT,mPLUG-DocOwl2,single-image SFT
+DocVQA,FT,VDocRAG,VDocGenerator SFT
+DocVQA,FT,LayTokenLLM,50K QA pairs over 12K images for SFT
+DocVQA,FT,Self-Attention Scoring,Pix2Struct page encoder fine-tuned on it (Stage 1)
+DocVQA,FT,Docopilot,56K Qs in instruction mix
+DocVQA,FT,Arctic-TILT,task-specific fine-tuning
+DocVQA,FT,DocR1,included in EviBench training pool
+DocVQA,FT,CREAM,SFT for single-page VQA
+DocVQA,FT,PDF-WuKong,SFT for single-page document QA
+DocVQA,FT,SV-RAG,39463 question-page pairs in ColPali-style Col-retrieval training
+InfographicVQA,FT,mPLUG-DocOwl2,SFT
+InfographicVQA,FT,VDocRAG,VDocGenerator SFT
+InfographicVQA,FT,RAG-DocVQA,embedding model + generator FT
+InfographicVQA,FT,Arctic-TILT,task-specific FT
+InfographicVQA,FT,DocR1,EviBench training
+InfographicVQA,FT,CREAM,SFT for infographic VQA
+InfographicVQA,FT,PDF-WuKong,SFT
+InfographicVQA,FT,Docopilot,25.5K Qs in instruction mix
+InfographicVQA,FT,SV-RAG,10074 InfoVQA pairs in Col-retrieval training
+DeepForm,FT,mPLUG-DocOwl2,form understanding SFT
+DeepForm,FT,Arctic-TILT,form-extraction FT
+DeepForm,FT,DocR1,EviBench training pool
+KleisterCharity,FT,mPLUG-DocOwl2,layout/IE SFT
+KleisterCharity,FT,Arctic-TILT,financial-report KIE FT
+KleisterCharity,FT,DocR1,EviBench training pool
+WikiTableQuestions,FT,mPLUG-DocOwl2,table understanding SFT
+WikiTableQuestions,FT,DocR1,EviBench training pool
+TabFact,FT,mPLUG-DocOwl2,table verification SFT
+TabFact,FT,DocR1,EviBench training pool
+ChartQA,FT,mPLUG-DocOwl2,chart SFT
+ChartQA,FT,VDocRAG,VDocGenerator SFT
+ChartQA,FT,Docopilot,30.2K Qs in mix
+ChartQA,FT,DocR1,EviBench training
+ChartQA,FT,PDF-WuKong,SFT
+TextVQA,FT,mPLUG-DocOwl2,text-in-image SFT
+TextVQA,FT,DocR1,EviBench training
+TextCaps,FT,mPLUG-DocOwl2,text captioning SFT
+TextCaps,FT,DocR1,EviBench training
+VisualMRC,FT,mPLUG-DocOwl2,SFT
+VisualMRC,FT,VDocRAG,VDocGenerator SFT
+VisualMRC,FT,DocR1,EviBench training
+VisualMRC,FT,CREAM,layout-rich web SFT
+DocReason25K,FT,mPLUG-DocOwl2,document reasoning SFT
+MP-DocVQA,FT,Hi-VT5,introduced and used as primary SFT corpus
+MP-DocVQA,FT,mPLUG-DocOwl2,multi-page SFT
+MP-DocVQA,FT,LayTokenLLM,standard supervised FT for multi-page VQA
+MP-DocVQA,FT,RAG-DocVQA,standard supervised FT for multi-page VQA
+MP-DocVQA,FT,Self-Attention Scoring,standard supervised FT for multi-page VQA
+MP-DocVQA,FT,Docopilot,51K Qs in instruction mix
+MP-DocVQA,FT,DFVC,80% split for adapter training
+MP-DocVQA,FT,CREAM,supervised FT for multi-page VQA
+MP-DocVQA,FT,GRAM,supervised FT for multi-page VQA
+MP-DocVQA,FT,RM-T5,supervised FT for multi-page VQA
+MP-DocVQA,FT,Doc-V*,SFT with 9019 trajectories
+MP-DocVQA,FT,DocSLM,curriculum FT
+MP-DocVQA,FT,M2RAG,VLM FT
+MP-DocVQA,FT,DocR1,EviBench training
+MP-DocVQA,FT,PDF-WuKong,SFT
+MP-DocVQA,FT,DREAM,trains LightGBM ranker + InternVL2-4B QA module on MP-DocVQA train split
+MP-DocVQA,FT,MM-R5,included in 73843-QA SFT mix
+MP-DocVQA,FT,URaG,Stage-1 retrieval pretraining + Stage-2 LoRA FT
+MP-DocVQA,FT,DocSeeker,13986 distilled CoT samples for SFT + EviGRPO RL pool
+DUDE,FT,mPLUG-DocOwl2,multi-page SFT
+DUDE,FT,VDocRAG,VDocGenerator SFT
+DUDE,FT,LayTokenLLM,supervised FT
+DUDE,FT,RAG-DocVQA,supervised FT
+DUDE,FT,Arctic-TILT,diverse-domain FT
+DUDE,FT,GRAM,supervised FT
+DUDE,FT,Doc-V*,trajectories for SFT
+DUDE,FT,CREAM,supervised FT
+DUDE,FT,DocR1,EviBench training
+DUDE,FT,PDF-WuKong,SFT
+DUDE,FT,Docopilot,27K Qs in mix
+DUDE,FT,DocDancer,source documents for trajectory synthesis
+DUDE,FT,DREAM,DUDE train split used together with MP-DocVQA for QA-module FT
+DUDE,FT,MM-R5,in 73843-QA SFT mix
+DUDE,FT,URaG,retrieval + LoRA FT
+DUDE,FT,DocSeeker,SFT + EviGRPO pool
+SlideVQA,FT,VDocRAG,VDocGenerator SFT
+SlideVQA,FT,DocR1,EviBench training
+SlideVQA,FT,ViDoRAG,refined into ViDoSeek benchmark
+SlideVQA,FT,SV-RAG,10290-sample training split for QA module fine-tuning
+SlideVQA,FT,MM-R5,in 73843-QA SFT mix
+SlideVQA,FT,VRAG-RL,SFT + GRPO RL training data
+SlideVQA,FT,URaG,retrieval + LoRA FT
+TAT-DQA,FT,Arctic-TILT,table-aware document QA FT
+TAT-DQA,FT,SV-RAG,13251 pairs in ColPali-style retrieval training
+TAT-DQA,FT,MM-R5,in 73843-QA SFT mix
+MP-DocReason51K,FT,mPLUG-DocOwl2,introduced multi-page reasoning SFT data
+DocGenome12K,FT,mPLUG-DocOwl2,document structure SFT
+NewsVideoQA,FT,mPLUG-DocOwl2,video-document SFT
+OpenWikiTable,FT,VDocRAG,VDocGenerator SFT for table QA
+MPMQA,FT,VDocRAG,multi-page document SFT
+MHDocVQA,FT,VDocRAG,newly created multi-hop document QA SFT data (introduced)
+Leopard-Instruct,FT,Leopard,introduced 925K-instance instruction set
+Pew Research Charts,FT,Leopard,multi-chart QA generated with GPT-4o
+SlideShare,FT,Leopard,slide-deck QA generated with GPT-4o
+MultiHiertt,FT,Leopard,multi-table images for multi-image FT
+MultiHiertt,FT,DocR1,EviBench training
+MultiTabQA,FT,Leopard,multi-table FT data
+TableGPT,FT,Leopard,single-table data split into sub-tables for multi-image FT
+ArxivQA,FT,Leopard,assembled into multi-image SFT
+ArxivQA,FT,Docopilot,31K Qs in instruction mix
+ArxivQA,FT,SV-RAG,10000 arXivQA pairs in retrieval training
+RICO,FT,Leopard,assembled into multi-image SFT
+FigureQA,FT,Leopard,assembled into multi-image SFT
+FigureQA,FT,DocR1,EviBench training
+MapQA,FT,Leopard,assembled into multi-image SFT
+ShareGPT4V,FT,Leopard,natural-image SFT
+DocHieNet,FT,MultiDocFusion,hierarchical document parsing FT
+HRDH,FT,MultiDocFusion,academic-document hierarchy FT
+MMLongBench-Doc,FT,MoLoRAG,5500 GPT-4o-synthesised QA pairs for logical relevance scorer
+MMLongBench-Doc,FT,DFVC,80% split for adapter training
+MMLongBench-Doc,FT,VRAG-RL,SFT + GRPO RL training trajectory pool
+LongDocURL,FT,MoLoRAG,document snapshots for synthetic-data generation
+LongDocURL,FT,DocDancer,source documents for trajectory synthesis
+LongDocURL,FT,MM-Doc-R1,300 samples as validation; remainder as SPO/GRPO RL training
+MMDocRAG,FT,DocDancer,source documents for trajectory synthesis
+CUAD,FT,DocDancer,source documents for trajectory synthesis
+CUAD,FT,MM-R5,in 73843-QA SFT mix
+HotpotQA,FT,KGP,fine-tunes DPR/MDR encoders and LLaMA-7B/T5-Large
+SIBR,FT,LayTokenLLM,real-world VIE FT
+Doc-750K,FT,Docopilot,introduced 758K QA / 3.1M images / 251K conversations (main SFT corpus)
+MP-Docmatix,FT,Docopilot,141K multi-page samples in SFT mix
+DocReason,FT,Docopilot,25.8K reasoning Qs in SFT mix
+MMDU,FT,Docopilot,45K multi-image general QA in SFT mix
+Long-context text mix,FT,Docopilot,LongAlpaca/LongQLoRA/LongCite/LongAlign/LongReward
+OCR-VQA,FT,mPLUG-DocOwl2,SFT mix
+OCR-VQA,FT,Docopilot,SFT mix
+OCR-VQA,FT,DocR1,EviBench training
+CoR-Dataset,FT,CoR,introduced 26088 QA pairs with reasoning traces for Chain-of-Reading SFT
+Mask-AR dataset,FT,CoR,self-supervised FT on figure-caption pairs
+Preference dataset (DPO),FT,CoR,5000 QA pairs used for Direct Preference Optimization
+InstructDoc,FT,InstructDoc,introduced 30-source / 12-task instruction set
+Kleister NDA,FT,Arctic-TILT,legal-document KIE FT
+CHART-Infographics,FT,Arctic-TILT,chart understanding FT
+SQuAD 2.0,FT,Arctic-TILT,extractive QA FT
+VQA-CD,FT,Arctic-TILT,invoice / purchase-order FT
+VQAonBD,FT,Arctic-TILT,business-document VQA FT
+DVQA,FT,DocR1,EviBench training pool
+TATDoc,FT,DocR1,EviBench training pool
+ArxivFullQA-train,FT,DocR1,scientific paper QA in EviBench training pool
+OpenHermes2.5,FT,Texthawk2,high-quality text instruction data
+COIG-CQIA,FT,Texthawk2,Chinese text instruction data
+ShareGPT-4o,FT,Texthawk2,instruction-following data
+LVIS-Instruct4V,FT,Texthawk2,visual instruction data
+LAION-GPT4V,FT,Texthawk2,vision-language instruction data
+LLaVAR,FT,Texthawk2,text-rich visual SFT
+KVQA,FT,Texthawk2,knowledge VQA SFT
+ViQuAE,FT,Texthawk2,VQA FT
+Geo170K,FT,Texthawk2,geographic visual SFT
+HME100K,FT,Texthawk2,handwritten math expression FT
+UniMER-1M,FT,Texthawk2,math equation recognition FT
+FUNSD,FT,Texthawk2,form understanding FT
+XFUND,FT,Texthawk2,multilingual form understanding FT
+SROIE,FT,Texthawk2,receipt FT
+POIE,FT,Texthawk2,invoice/product FT
+ST-VQA,FT,Texthawk2,scene-text VQA FT
+ESTVQA,FT,Texthawk2,scene-text VQA FT
+PaperPDF,FT,PDF-WuKong,1.1M-pair SFT corpus from scientific PDFs (introduced)
+ScienceQA,FT,InstructDoc,held-in multimodal science instruction tuning
+ColPali synthetic,FT,SV-RAG,45940 synthetic question-page pairs for Col-retrieval FT
+DocMatix-IR,FT,SV-RAG,GPT-4o-filtered IR data for Col-retrieval training
+PFLDocVQA,FT,SV-RAG,GPT-4o-filtered federated DocVQA for Col-retrieval training
+SciQAG,FT,MM-R5,in 73843-QA SFT mix from MMDocIR training
+MM-R5 Reasoning Set (7200),FT,MM-R5,7200 GPT-4o-annotated CoT samples for SFT + 3K for GRPO RL (introduced)
+ViDoSeek,FT,VRAG-RL,SFT + GRPO RL training trajectory pool
+VRAG-RL trajectories,FT,VRAG-RL,self-collected Qwen-VLmax trajectories over SlideVQA/ViDoSeek/MMLongBench-Doc (introduced)
+DocSeeker ALR-CoT (13986),FT,DocSeeker,Gemini-2.5-Flash-distilled ALR chain-of-thought SFT data (introduced)
+MP-DocVQA,BM,mPLUG-DocOwl2,standard multi-page VQA evaluation
+MP-DocVQA,BM,Hi-VT5,introduces and evaluates on dataset
+MP-DocVQA,BM,RAG-DocVQA,standard multi-page VQA evaluation
+MP-DocVQA,BM,LayTokenLLM,standard multi-page VQA evaluation
+MP-DocVQA,BM,Self-Attention Scoring,standard + extended (up to 793 pages) evaluation
+MP-DocVQA,BM,GRAM,standard multi-page VQA evaluation
+MP-DocVQA,BM,RM-T5,standard multi-page VQA evaluation
+MP-DocVQA,BM,Arctic-TILT,standard multi-page VQA evaluation
+MP-DocVQA,BM,AVIR,multi-page VQA evaluation
+MP-DocVQA,BM,DocR1,standard multi-page VQA evaluation
+MP-DocVQA,BM,Doc-V*,in-domain evaluation
+MP-DocVQA,BM,DocSLM,multi-page VQA evaluation
+MP-DocVQA,BM,M3DocRAG,multi-page VQA evaluation
+MP-DocVQA,BM,PDF-WuKong,multi-page VQA evaluation
+MP-DocVQA,BM,Leopard,multi-page VQA evaluation
+MP-DocVQA,BM,CREAM,multi-page VQA evaluation
+MP-DocVQA,BM,DFVC,20% held-out for evaluation
+MP-DocVQA,BM,DREAM,cross-page evaluation
+MP-DocVQA,BM,URaG,86.0-88.2% ANLS evaluation
+MP-DocVQA,BM,DocSeeker,86.2% ANLS evaluation
+DocVQA,BM,mPLUG-DocOwl2,single-page document VQA evaluation
+DocVQA,BM,Leopard,single-page evaluation
+DocVQA,BM,LayTokenLLM,single-page evaluation
+DocVQA,BM,Self-Attention Scoring,single-page evaluation
+DocVQA,BM,Hi-VT5,single-page evaluation
+DocVQA,BM,Arctic-TILT,single-page evaluation
+DocVQA,BM,DocR1,single-page evaluation
+DocVQA,BM,CREAM,single-page evaluation
+DocVQA,BM,PDF-WuKong,single-page evaluation
+DocVQA,BM,MACT,single-page evaluation
+DocVQA,BM,Texthawk2,single-page evaluation
+DocVQA,BM,CoR,single-page evaluation
+DocVQA,BM,DocReact,single-page evaluation
+DocVQA,BM,Docopilot,single-page evaluation
+DocVQA,BM,SV-RAG,5349 SP + 5187 MP from validation split
+DUDE,BM,Leopard,multi-domain multi-page evaluation
+DUDE,BM,RAG-DocVQA,multi-page evaluation
+DUDE,BM,LayTokenLLM,multi-page evaluation
+DUDE,BM,GRAM,multi-page evaluation
+DUDE,BM,Arctic-TILT,multi-page evaluation
+DUDE,BM,AVIR,multi-page evaluation
+DUDE,BM,DocR1,multi-page evaluation
+DUDE,BM,Doc-V*,in-domain evaluation
+DUDE,BM,DocSLM,multi-page evaluation
+DUDE,BM,CREAM,multi-page evaluation
+DUDE,BM,PDF-WuKong,multi-page evaluation
+DUDE,BM,MultiDocFusion,multi-page evaluation
+DUDE,BM,MACT,multi-page evaluation
+DUDE,BM,M3DocRAG,multi-page evaluation
+DUDE,BM,VDocRAG,multi-page evaluation
+DUDE,BM,MLDocRAG,multi-page evaluation
+DUDE,BM,DREAM,multi-page evaluation
+DUDE,BM,SV-RAG,6307 QA pairs from validation split
+DUDE,BM,URaG,54.1-57.6% ANLS evaluation
+DUDE,BM,DocSeeker,57.4% ANLS evaluation
+MMLongBench-Doc,BM,MoLoRAG,long-document evaluation
+MMLongBench-Doc,BM,SimpleDoc,long-document evaluation
+MMLongBench-Doc,BM,DocReact,long-document evaluation
+MMLongBench-Doc,BM,MDocAgent,long-document evaluation
+MMLongBench-Doc,BM,DocAgent,long-document evaluation
+MMLongBench-Doc,BM,MLDocRAG,long-document evaluation
+MMLongBench-Doc,BM,MHier-RAG,long-document evaluation
+MMLongBench-Doc,BM,MACT,long-document evaluation
+MMLongBench-Doc,BM,DocLens,long-document evaluation
+MMLongBench-Doc,BM,M2RAG,long-document evaluation
+MMLongBench-Doc,BM,DocDancer,long-document evaluation
+MMLongBench-Doc,BM,M3DocRAG,long-document evaluation
+MMLongBench-Doc,BM,Doc-V*,up to 468 pages
+MMLongBench-Doc,BM,DocSLM,long-document evaluation
+MMLongBench-Doc,BM,Arctic-TILT,up to 400 pages
+MMLongBench-Doc,BM,CoR,long-document evaluation
+MMLongBench-Doc,BM,Docopilot,long-document evaluation
+MMLongBench-Doc,BM,DMAP,long-document evaluation
+MMLongBench-Doc,BM,DREAM,cross-page evaluation
+MMLongBench-Doc,BM,MM-Doc-R1,primary benchmark
+MMLongBench-Doc,BM,SV-RAG,single + cross-evidence subsets
+MMLongBench-Doc,BM,SLEUTH,52.77% accuracy
+MMLongBench-Doc,BM,VRAG-RL,57.1% Qwen2.5-VL-7B accuracy
+MMLongBench-Doc,BM,URaG,31.1-33.8% accuracy
+MMLongBench-Doc,BM,DocSeeker,40.1% accuracy
+LongDocURL,BM,MoLoRAG,long-document evaluation
+LongDocURL,BM,SimpleDoc,long-document evaluation
+LongDocURL,BM,MDocAgent,long-document evaluation
+LongDocURL,BM,MLDocRAG,long-document evaluation
+LongDocURL,BM,MHier-RAG,long-document evaluation
+LongDocURL,BM,DocLens,long-document evaluation
+LongDocURL,BM,M2RAG,long-document evaluation
+LongDocURL,BM,Doc-V*,out-of-domain evaluation
+LongDocURL,BM,CoR,long-document evaluation
+LongDocURL,BM,DocDancer,long-document evaluation
+LongDocURL,BM,DMAP,long-document evaluation
+LongDocURL,BM,SLEUTH,long-document evaluation
+LongDocURL,BM,URaG,41.5-52.2% evaluation
+LongDocURL,BM,DocSeeker,51.7% accuracy
+SlideVQA,BM,DocReact,slide-presentation evaluation
+SlideVQA,BM,MACT,slide-presentation evaluation
+SlideVQA,BM,Arctic-TILT,slide-presentation evaluation
+SlideVQA,BM,AVIR,slide-presentation evaluation
+SlideVQA,BM,Leopard,slide-presentation evaluation
+SlideVQA,BM,ViDoRAG,refined into ViDoSeek
+SlideVQA,BM,MLDocRAG,slide-presentation evaluation
+SlideVQA,BM,MHier-RAG,slide-presentation evaluation
+SlideVQA,BM,M2RAG,slide-presentation evaluation
+SlideVQA,BM,Doc-V*,slide-presentation evaluation
+SlideVQA,BM,DocR1,slide-presentation evaluation
+SlideVQA,BM,VDocRAG,slide-presentation evaluation
+SlideVQA,BM,MDocAgent,slide-presentation evaluation
+SlideVQA,BM,SV-RAG,20-page slide single/cross-evidence
+SlideVQA,BM,VRAG-RL,single + multi-hop subsets
+SlideVQA,BM,URaG,63.8-72.1% EM evaluation
+SlideVQA,BM,DocSeeker,77.1% F1 evaluation
+ChartQA,BM,VDocRAG,zero-shot evaluation
+ChartQA,BM,MACT,chart QA evaluation
+ChartQA,BM,Texthawk2,chart QA evaluation
+ChartQA,BM,DocR1,chart QA evaluation
+ChartQA,BM,PDF-WuKong,chart QA evaluation
+ChartQA,BM,CoR,chart QA evaluation
+ChartQA,BM,Docopilot,chart QA evaluation
+InfographicVQA,BM,Hi-VT5,infographic VQA evaluation
+InfographicVQA,BM,Arctic-TILT,infographic VQA evaluation
+InfographicVQA,BM,RAG-DocVQA,infographic VQA evaluation
+InfographicVQA,BM,MACT,infographic VQA evaluation
+InfographicVQA,BM,DocR1,infographic VQA evaluation
+InfographicVQA,BM,CREAM,infographic VQA evaluation
+InfographicVQA,BM,PDF-WuKong,infographic VQA evaluation
+InfographicVQA,BM,M3DocRAG,infographic VQA evaluation
+InfographicVQA,BM,VDocRAG,infographic VQA evaluation
+InfographicVQA,BM,Texthawk2,infographic VQA evaluation
+InfographicVQA,BM,InstructDoc,infographic VQA evaluation
+InfographicVQA,BM,Docopilot,infographic VQA evaluation
+VisualMRC,BM,Hi-VT5,visual reading comprehension
+VisualMRC,BM,MACT,visual reading comprehension
+VisualMRC,BM,DocR1,visual reading comprehension
+VisualMRC,BM,CREAM,visual reading comprehension
+VisualMRC,BM,InstructDoc,visual reading comprehension
+TextVQA,BM,Leopard,scene-text VQA
+TextVQA,BM,DocR1,scene-text VQA
+TextVQA,BM,Texthawk2,scene-text VQA
+TabFact,BM,DocR1,table-fact verification
+TabFact,BM,Texthawk2,table-fact verification
+TabFact,BM,InstructDoc,table-fact verification
+WikiTableQuestions,BM,DocR1,table QA
+WikiTableQuestions,BM,Texthawk2,table QA
+MultiHiertt,BM,Leopard,multi-page hierarchical-table eval
+MultiHiertt,BM,DocR1,multi-page hierarchical-table eval
+MultiChartQA,BM,Leopard,multi-chart evaluation
+MultiChartQA,BM,DocR1,multi-chart evaluation
+FUNSD,BM,LayTokenLLM,form-entity extraction (50 images)
+FUNSD,BM,InstructDoc,form-entity extraction
+CORD,BM,LayTokenLLM,receipt-entity extraction (100 images)
+CORD,BM,InstructDoc,receipt-entity extraction
+SIBR,BM,LayTokenLLM,real-world VIE eval (400 images)
+TAT-DQA,BM,Arctic-TILT,table-aware document QA
+PaperTab,BM,MoLoRAG,tabular QA from academic papers
+PaperTab,BM,SimpleDoc,tabular QA from academic papers
+PaperTab,BM,MDocAgent,tabular QA from academic papers
+PaperTab,BM,DMAP,tabular QA from academic papers
+PaperTab,BM,SLEUTH,tabular QA from academic papers
+PaperTab,BM,VisDoMRAG,sub-task of VisDoMBench
+FetaTab,BM,MoLoRAG,table QA evaluation
+FetaTab,BM,SimpleDoc,table QA evaluation
+FetaTab,BM,MDocAgent,table QA evaluation
+FetaTab,BM,DMAP,table QA evaluation
+FetaTab,BM,SLEUTH,table QA evaluation
+FetaTab,BM,VisDoMRAG,sub-task of VisDoMBench
+PaperText,BM,MDocAgent,document text understanding
+PaperText,BM,DMAP,document text understanding
+PaperText,BM,SLEUTH,document text understanding
+M3DocVQA,BM,M3DocRAG,introduced open-domain multi-doc VQA
+ViDoSeek,BM,ViDoRAG,introduced (refined from SlideVQA)
+ViDoSeek,BM,VRAG-RL,extraction + logic-reasoning subsets
+OpenDocVQA,BM,VDocRAG,introduced unified open-domain DocVQA benchmark
+InstructDoc,BM,InstructDoc,30-source held-out zero-shot evaluation (introduced)
+DocBench,BM,DocAgent,multi-page evaluation
+DocBench,BM,DocDancer,multi-page evaluation
+DocBench,BM,M2RAG,multi-page evaluation
+HotpotQA,BM,KGP,500-question multi-doc QA
+IIRC,BM,KGP,477-question multi-doc QA
+2WikiMQA,BM,KGP,500-question multi-doc QA
+MuSiQue,BM,KGP,500-question multi-doc QA
+PDFTriage,BM,KGP,structural document QA
+KleisterCharity,BM,Arctic-TILT,financial-document evaluation
+Kleister NDA,BM,Arctic-TILT,legal-document evaluation
+VQA-CD,BM,Arctic-TILT,invoice/purchase-order evaluation
+PubMed-Lay,BM,Arctic-TILT,scientific summarisation
+ArXivLay,BM,Arctic-TILT,scientific paper summarisation
+MMMU,BM,Leopard,multimodal multitask benchmark
+MathVista,BM,Leopard,math visual reasoning
+MathVista,BM,MACT,math visual reasoning
+ScienceQA,BM,Leopard,multimodal science QA
+ScienceQA,BM,MACT,multimodal science QA
+MIRB,BM,Leopard,multimodal information retrieval
+MiBench,BM,Leopard,multimodal benchmark
+CharXiv,BM,MACT,chart benchmark
+TableVQA-Bench,BM,MACT,table VQA
+TableBench,BM,MACT,table reasoning
+RealWorldQA,BM,MACT,real-world QA
+MathVision,BM,MACT,math reasoning
+MathVerse,BM,MACT,math reasoning
+FinRAGBench-V,BM,DocLens,financial multimodal RAG evaluation
+MM-NIAH,BM,Docopilot,long-form needle-in-a-haystack
+NewsVideoQA,BM,DocSLM,text-rich video QA (qualitative)
+DocHieNet,BM,MultiDocFusion,document-hierarchy parsing
+HRDH,BM,MultiDocFusion,academic-document hierarchy
+MPVQA,BM,MultiDocFusion,multi-page document QA
+CUAD,BM,MultiDocFusion,contract understanding
+MOAMOB,BM,MultiDocFusion,complex document QA
+ArxivFullQA,BM,DocR1,scientific paper QA
+TATDoc,BM,DocR1,table-aware document reasoning
+OCRBench,BM,Texthawk2,OCR capability benchmark
+RefCOCO family,BM,Texthawk2,referring expression comprehension
+PaperPDF,BM,PDF-WuKong,long-PDF QA test split (introduced)
+MMDocIR,BM,MM-R5,10-domain multi-modal retrieval benchmark (primary)
+VisR-Bench,BM,SV-RAG,introduced 226-doc/471-QA web-crawled benchmark
+VisDoMBench,BM,VisDoMRAG,introduced 2271-QA multi-document benchmark
+SciGraphQA,BM,VisDoMRAG,chart-based sub-task of VisDoMBench
+SPIQA,BM,VisDoMRAG,scientific QA sub-task of VisDoMBench

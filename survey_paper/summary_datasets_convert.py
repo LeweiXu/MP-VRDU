@@ -189,14 +189,26 @@ def main():
     if "Pages" not in df.columns:
         raise ValueError("CSV is missing required 'Pages' column.")
 
-    # Stable sort by Pages: SP -> MP -> MP+SP, preserving original order within groups.
+    # Sort by Pages group (SP -> MP -> MP+SP), then Type descending (PT -> FT -> BM),
+    # then alphabetically by Name.
     df = df.copy()
     df["_pages_rank"] = (
         df["Pages"].fillna("").astype(str).str.strip()
         .map(PAGES_SORT_RANK)
         .fillna(len(PAGES_SORT_RANK) + 1)
     )
-    df = df.sort_values(by=["_pages_rank"], kind="stable").drop(columns=["_pages_rank"])
+    df["_type_key"] = (
+        df["Type"].fillna("").astype(str).str.strip().map(normalise_type)
+    )
+    df["_name_key"] = df["Name"].fillna("").astype(str).str.strip().str.lower()
+    df = (
+        df.sort_values(
+            by=["_pages_rank", "_type_key", "_name_key"],
+            ascending=[True, False, True],
+            kind="stable",
+        )
+        .drop(columns=["_pages_rank", "_type_key", "_name_key"])
+    )
 
     columns = make_column_config(df.columns, ALWAYS_HIDDEN)
     col_spec = " ".join(spec for _, _, spec in columns)
@@ -209,7 +221,7 @@ def main():
         r"\textbf{Pages}: document scope (MP\,=\,Multi-Page, SP\,=\,Single-Page, "
         r"MP+SP\,=\,Mixed). "
         r"\textbf{Type}: dataset role -- "
-        r"PT (Pretraining), IT/FT (Instruction Tuning / Fine-Tuning), "
+        r"PT (Pretraining), FT (Fine-Tuning), "
         r"BM (Benchmark), and combinations. "
         r"\textbf{Hop}: question-hop type (Single, Multi, or both). "
         r"`--' indicates not reported."

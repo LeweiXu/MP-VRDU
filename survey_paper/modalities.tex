@@ -1,0 +1,26 @@
+\section*{Suggestions for restructuring §4}
+
+\textbf{Core problem}: §4 reads too close to §3 --- the three subsections describe the same systems under different labels.
+
+\textbf{Suggested fix}: Reframe each modality around \emph{MP-specific problems}. Each subsection follows the same structure: one sentence on why this modality is a problem in MP-VRDU, then three core problems with current solutions and unresolved gaps.
+
+\subsection*{§4.1 Text}
+\textbf{Why it matters}: Text density is an asset in SP-VRDU but the central bottleneck in MP-VRDU --- 50 pages versus an answer in a few sentences.
+
+Three problems to discuss: \textbf{compression} (where in the pipeline the loss is taken --- acquisition, encoding, or retrieval); \textbf{continuity} (continued paragraphs and multi-page tables fragmented by per-page handling); and \textbf{heterogeneity} (text density varies sharply across pages, yet token budget is allocated uniformly).
+
+\subsection*{§4.2 Visual}
+\textbf{Why it matters}: Token cost scales as page count $\times$ resolution, and a single page image carries three qualitatively different signal types competing for one budget.
+
+Three problems to discuss: \textbf{resolution versus coverage} (high resolution cannot cover the whole document); \textbf{multi-signal interpretation} (text-bearing, non-textual, and layout visuals compete for the same token budget); and \textbf{heterogeneity} (visual complexity varies sharply across pages).
+
+\subsection*{§4.3 Structure}
+\textbf{Why it matters}: Cross-page structure is a representation problem, not a compression one --- per-token bounding boxes describe tokens, not relationships that span pages.
+
+Three problems to discuss: \textbf{hierarchy and reading order} (sections span multiple pages, columns cross page breaks); \textbf{relations and references} (figure-text linkages and cross-references point across pages); and \textbf{continuation} (multi-page tables and continued paragraphs fragmented at page boundaries).
+
+\subsection*{Cross-modality observations}
+Three points worth raising at the end of §4 or saving for §8. First, all current solutions are upstream-driven --- retrievers and parsers decide what to keep before reasoning begins, and no modality supports query-conditional reading. Second, failures are uniformly silent (fragmented evidence, unreadable regions, missing relations). Third, the three modalities are coupled: visual compression limits pixel-recovered text and implicit structure recovery, and parser quality propagates into chunking and cross-reference resolution.
+
+\subsection*{Practical notes}
+Keep each subsection around 250 words. Give one or two representative citations per solution and let the appendix tables carry comprehensive coverage. Avoid re-citing models from §3 unless they are the canonical example for a modality-level problem.
